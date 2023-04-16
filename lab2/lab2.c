@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-extern int counter;
+extern int timer_interrupts;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -60,7 +60,8 @@ int(timer_test_int)(uint8_t time) {
         case HARDWARE: /* hardware interrupt notification */
           if (msg.m_notify.interrupts & irq_set) {
             timer_int_handler();
-            if(counter % 60 == 0){time--;
+            if(timer_interrupts % 60 == 0){
+              time--;
               timer_print_elapsed_time();
             }
           }
