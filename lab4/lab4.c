@@ -10,7 +10,7 @@
 #include "timer.c"
 
 extern uint8_t mouse_byte_index;
-extern int counter;
+extern int timer_interrupts;
 extern struct packet mouse_packet;
 
 int main(int argc, char *argv[]) {
@@ -103,7 +103,7 @@ int (mouse_test_async)(uint8_t idle_time){
           
           if (msg.m_notify.interrupts & timer_mask) {
             timer_int_handler();
-            if (counter % timer_interrupt_freq == 0) seconds_without_packets++;
+            if (timer_interrupts % timer_interrupt_freq == 0) seconds_without_packets++;
           }
 
           if (msg.m_notify.interrupts & mouse_mask){  
@@ -115,7 +115,7 @@ int (mouse_test_async)(uint8_t idle_time){
               mouse_print_packet(&mouse_packet);     
             }
             seconds_without_packets = 0;
-            counter = 0;
+            timer_interrupts = 0;
           }
           break;
       }

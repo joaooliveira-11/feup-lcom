@@ -12,3 +12,4 @@ int (read_KBC_output)(uint8_t port, uint8_t *output, uint8_t mouse_output);
 int (write_KBC_command)(uint8_t port, uint8_t commandByte);
 
 #endif
+
