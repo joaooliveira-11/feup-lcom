@@ -8,10 +8,11 @@
 #include "i8042.h"
 #include "i8254.h"
 #include "keyboard.h"
+#include "timer.c"
 
 
 extern uint32_t counter_sysinb;
-extern int counter;
+extern int timer_interrupts;
 extern uint8_t scancode;
 
 int main(int argc, char *argv[]) {
@@ -83,7 +84,7 @@ int(kbd_test_poll)() {
     bool twobytes_scancode = false;
     
   while (scancode != BREAK_ESC) {
-    if (read_KBC_output(0x60, &scancode) == 0) {
+    if (read_KBC_output(0x60, &scancode,0) == 0) {
       if (scancode == TWO_BYTES) {
         twobytes_scancode = true;
       }
@@ -127,7 +128,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
           if (msg.m_notify.interrupts & keyboard_mask) {
             kbc_ih();
             count_seconds = 0;
-            counter = 0;
+            timer_interrupts = 0;
             if (scancode == TWO_BYTES) {
               twobytes_scancode = true;
             }
@@ -144,7 +145,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
           }
           if(msg.m_notify.interrupts & timer_mask){
             timer_int_handler();
-            if(counter % 60 == 0) count_seconds++;
+            if(timer_interrupts % 60 == 0) count_seconds++;
           }
       }
     }
