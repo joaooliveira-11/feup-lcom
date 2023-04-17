@@ -1,12 +1,7 @@
-#include <lcom/lcf.h>
-#include <lcom/timer.h>
+#include "timer.h"
 
-#include <stdint.h>
-
-#include "i8254.h"
-
-int hook_id = 0;
-int counter = 0;
+int timer_hook_id = 0;
+int timer_interrupts = 0;
 
 
 int(timer_set_frequency)(uint8_t timer, uint32_t freq){
@@ -43,18 +38,18 @@ int(timer_set_frequency)(uint8_t timer, uint32_t freq){
 
 int(timer_subscribe_int)(uint8_t *mask){
   if(mask == NULL) return 1;
-  *mask = BIT(hook_id);
-  if(sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id) != 0) return 1;
+  *mask = BIT(timer_hook_id);
+  if(sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &timer_hook_id) != 0) return 1;
   return 0;
 }
 
 int(timer_unsubscribe_int)(){
-  if(sys_irqrmpolicy(&hook_id) != 0) return 1;
+  if(sys_irqrmpolicy(&timer_hook_id) != 0) return 1;
   return 0;
 }
 
 void(timer_int_handler)(){
-  counter++;
+  timer_interrupts++;
 }
 
 int(timer_get_conf)(uint8_t timer, uint8_t *st){

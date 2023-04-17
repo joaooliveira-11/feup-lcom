@@ -17,14 +17,14 @@ int(keyboard_unsubscribe_int)(){
 
 
 void(kbc_ih)(){
-    if(read_KBC_output(0x60, &scancode) != 0) printf("error while reading scancode");
+    if(read_KBC_output(0x60, &scancode,0) != 0) printf("error while reading scancode");
 }
 
 int (keyboard_restore)() {
     uint8_t commandByte;
 
     if (write_KBC_command(KBC_IN_CMD, KBC_READ_CMD) != 0) return 1;
-    if (read_KBC_output(KBC_OUT_CMD, &commandByte) != 0) return 1;
+    if (read_KBC_output(KBC_OUT_CMD, &commandByte,0) != 0) return 1;
 
     commandByte |= ENABLE_INT;
 
