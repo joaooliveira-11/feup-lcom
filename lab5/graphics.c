@@ -41,7 +41,7 @@ int (frame_buffer_build)(uint16_t mode){
     
     struct minix_mem_range frameBuffer_physic_address;
     frameBuffer_physic_address.mr_base = vbe_mode_info.PhysBasePtr;   // endereço físico base do frame buffer
-    frameBuffer_physic_address.mr_limit = vbe_mode_info.PhysBasePtr + frame_buffer_size; // endereço físico final do frame buffer
+    frameBuffer_physic_address.mr_limit = frameBuffer_physic_address.mr_base + frame_buffer_size; // endereço físico final do frame buffer
 
     if(sys_privctl(SELF, SYS_PRIV_ADD_MEM, &frameBuffer_physic_address)) {
         printf("Error while allocating physical memory for frame buffer\n");
