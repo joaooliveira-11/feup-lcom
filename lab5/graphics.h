@@ -45,5 +45,6 @@ uint32_t(B)(unsigned row, unsigned col, uint8_t step, uint32_t first);
 
 int(video_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
 
+int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
 #endif
 

@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "timer.h": "c",
-        "keyboard.h": "c"
+        "keyboard.h": "c",
+        "pixmap.h": "c",
+        "ipc.h": "c"
     }
 }

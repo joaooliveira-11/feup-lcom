@@ -88,11 +88,10 @@ int (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, ui
 }
 
 int (fix_colorMode_bits)(uint32_t color, uint32_t *color_fix){
-  if(vbe_mode_info.BitsPerPixel == 15){
-    *color_fix = (BIT(vbe_mode_info.BitsPerPixel) - 1) & color; // colocar o último bit a 0;
-  }
-  else{
+  if (vbe_mode_info.BitsPerPixel == 32) {
     *color_fix = color;
+  } else {
+    *color_fix = color & (BIT(vbe_mode_info.BitsPerPixel) - 1);
   }
   return 0;
 }
@@ -145,6 +144,21 @@ int(video_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step){
       }
       
       if(draw_rectangle(w * width, h * height, width, height, color) != 0) return 1;
+    }
+  }
+  return 0;
+}
+
+int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+
+  xpm_image_t img;
+
+  uint8_t *colors_array = xpm_load(xpm, XPM_INDEXED, &img);
+
+  for (int h = 0 ; h < img.height ; h++) {
+    for (int w = 0 ; w < img.width ; w++) {
+      if (color_pixel(x + w, y + h, *colors_array) != 0) return 1;
+      colors_array++;
     }
   }
   return 0;
