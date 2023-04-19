@@ -73,7 +73,11 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y, uint16_t width,
 
   if(frame_buffer_build(mode) != 0) return 1;
   if(changeTo_graphic_mode(mode) != 0) return 1;
-  if(draw_rectangle(x, y, width, height, color) != 0) return 1;
+
+  uint32_t fixed_color;
+  if(fix_colorMode_bits(color, &fixed_color) != 0) return 1;
+
+  if(draw_rectangle(x, y, width, height, fixed_color) != 0) return 1;
   if (quit_draw_rectangle() != 0) return 1;
   if (vg_exit() != 0) return 1;
   return 0;

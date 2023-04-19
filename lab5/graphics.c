@@ -86,3 +86,13 @@ int (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, ui
   }
   return 0;
 }
+
+int (fix_colorMode_bits)(uint32_t color, uint32_t *color_fix){
+  if(vbe_mode_info.BitsPerPixel == 15){
+    *color_fix = (BIT(vbe_mode_info.BitsPerPixel) - 1) & color; // colocar o último bit a 0;
+  }
+  else{
+    *color_fix = color;
+  }
+  return 0;
+}
