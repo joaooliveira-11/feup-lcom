@@ -96,3 +96,56 @@ int (fix_colorMode_bits)(uint32_t color, uint32_t *color_fix){
   }
   return 0;
 }
+
+uint32_t(direct_color)(uint32_t red_, uint32_t green_, uint32_t blue_) {
+  return (green_ << vbe_mode_info.GreenFieldPosition) | (blue_ << vbe_mode_info.BlueFieldPosition) | (red_ << vbe_mode_info.RedFieldPosition);
+}
+
+uint32_t(indexed_color)(uint16_t col, uint16_t row, uint8_t step, uint32_t first, uint8_t no_rectangles) {
+  return (first + (row * no_rectangles + col) * step) % (1 << vbe_mode_info.BitsPerPixel);
+}
+
+uint32_t(R_first)(uint32_t first) {
+  return (first >> vbe_mode_info.RedFieldPosition) & ((1 << vbe_mode_info.RedMaskSize) - 1);
+}
+
+uint32_t(G_first)(uint32_t first) {
+  return (first >> vbe_mode_info.GreenFieldPosition) & ((1 << vbe_mode_info.GreenMaskSize) - 1);
+}
+
+uint32_t(B_first)(uint32_t first) {
+  return (first >> vbe_mode_info.BlueFieldPosition) & ((1 << vbe_mode_info.RedMaskSize) - 1);
+}
+
+uint32_t(R)(unsigned col, uint8_t step, uint32_t first) {
+  return (R_first(first) + col * step) % (1 << vbe_mode_info.RedMaskSize);
+}
+
+uint32_t(G)(unsigned row, uint8_t step, uint32_t first) {
+  return (G_first(first) + row * step) % (1 << vbe_mode_info.RedMaskSize);
+}
+
+uint32_t(B)(unsigned row, unsigned col, uint8_t step, uint32_t first) {
+  return (B_first(first) + (col + row) * step) % (1 << vbe_mode_info.RedMaskSize);
+}
+
+int(video_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step){
+  int height = vbe_mode_info.YResolution / no_rectangles;
+  int width = vbe_mode_info.XResolution / no_rectangles;
+
+  for(int h = 0; h < no_rectangles; h++){
+    for(int w = 0; w < no_rectangles; w++){
+      uint32_t color;
+
+      if(vbe_mode_info.MemoryModel == DIRECT_COLOR){
+        color = direct_color(R(w,step,first), G(h,step,first), B(w,h,step,first));
+      }
+      else{
+        color = indexed_color(w,h,step,first,no_rectangles);
+      }
+      
+      if(draw_rectangle(w * width, h * height, width, height, color) != 0) return 1;
+    }
+  }
+  return 0;
+}
