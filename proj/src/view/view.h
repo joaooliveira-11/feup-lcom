@@ -8,12 +8,12 @@
 #include "../model/sprite.h"
 #include "../model/model.h"
 
-void draw_new_frame();
-void draw_initial_menu();
-void draw_game_menu();
-void swap_buffers();
+void draw_frame();
+void draw_initial_menu_screen();
+void draw_game_screen();
+void buffer_swap();
 int draw_sprite_xpm(sprite_t *sprite, int x, int y);
 int draw_sprite_button(sprite_t *sprite, int x, int y);
-int set_frame_buffers(uint16_t mode);
+int build_buffers(uint16_t mode);
 
 #endif

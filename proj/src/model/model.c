@@ -26,29 +26,24 @@ void delete_sprites(){
     sprite_delete(button4);
 }
 
-// Na altura da interrupção há troca dos buffers
-void update_timer_state() {
-    if (ACTIVE_DOUBLE_Buffer) swap_buffers();
+void update_timer() {
+    if (ACTIVE_DOUBLE_Buffer) buffer_swap();
 }
 
-// Sempre que uma nova tecla é pressionada há avaliação do scancode.
-// No caso do Template o teclado influencia:
-// - o systemState: se Q for pressionado, leva ao fim do programa
-// - o menuState: se S, G, E forem pressionados, leva a um dos menus (start, game, end) disponíveis
-void update_keyboard_state() {
+void update_keyboard() {
     (kbc_ih)();
     switch (scancode) {
-        case Q_KEY:
+        case QUIT:
             systemstate = OFF;
             break;
-        case S_KEY:
+        case INITIAL_MENU:
             gamestate = START_MENU;
             break;
-        case G_KEY:
+        case GAME_SCREEN:
             gamestate = PLAYING;
             break;
         default:
             break;
     }
-    draw_new_frame();
+    draw_frame();
 }

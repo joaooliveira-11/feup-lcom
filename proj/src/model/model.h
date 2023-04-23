@@ -30,7 +30,7 @@ typedef enum {
 
 void prepare_sprites();
 void delete_sprites();
-void update_timer_state();
-void update_keyboard_state();
+void update_timer();
+void update_keyboard();
 
 #endif
