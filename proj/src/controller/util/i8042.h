@@ -1,9 +1,8 @@
-#ifndef _LCOM_I8042_H_
-#define _LCOM_I8042_H_
+#ifndef _LCOM_I8042_MOUSE_H_
+#define _LCOM_I8042_MOUSE_H_
 
 #define IRQ_KEYBOARD    1
 #define IRQ_MOUSE       12
-
 
 #define BREAK_ESC       0x81
 #define MAKE_CODE       BIT(7)
@@ -24,10 +23,6 @@
 #define WAIT_KBC        20000
 #define MAX_ATTEMPS     10
 
-#define BREAK_ESC        0x81
-#define MAKE             BIT(7)
-#define TWO              0XE0
-
 #define MOUSE_LB            BIT(0)
 #define MOUSE_RB            BIT(1)
 #define MOUSE_MB            BIT(2)
@@ -44,5 +39,10 @@
 
 #define ACK 0xFA    
 #define NACK 0xFE
+
+#define S_KEY           31
+#define G_KEY           34
+#define E_KEY           18
+#define Q_KEY           16
 
 #endif

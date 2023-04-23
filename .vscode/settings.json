@@ -3,6 +3,14 @@
         "timer.h": "c",
         "keyboard.h": "c",
         "pixmap.h": "c",
-        "ipc.h": "c"
-    }
+        "ipc.h": "c",
+        "view.h": "c",
+        "config.h": "c",
+        "model.h": "c",
+        "game_conf.h": "c",
+        "kbc.h": "c",
+        "i8042.h": "c"
+    },
+    "C_Cpp.dimInactiveRegions": false,
+    "C_Cpp.errorSquiggles": "enabled"
 }

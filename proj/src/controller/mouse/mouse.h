@@ -3,14 +3,7 @@
 
 #include <minix/sysutil.h>
 #include <lcom/lcf.h>
-#include "i8042.h"
-#include "KBC.h"
-
-int (read_KBC_status)(uint8_t* status);
-
-int (read_KBC_output)(uint8_t port, uint8_t *output, uint8_t mouse_output);
-
-int (write_KBC_command)(uint8_t port, uint8_t commandByte);
+#include "../util/KBC.h"
 
 int (mouse_subscribe_int)(uint8_t *bit_no);
 
@@ -25,3 +18,4 @@ void (mouse_bytes_to_packet)();
 int (mouse_write)(uint8_t command);
 
 #endif
+
