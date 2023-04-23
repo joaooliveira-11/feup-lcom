@@ -23,9 +23,8 @@ int main(int argc, char *argv[]) {
 int (prepare_game)(){
 
     if(timer_set_frequency(0, GAMEFPS) != 0) return 1;
-  
     if(changeTo_graphic_mode(GAME_MODE) != 0) return 1;
-    if(set_frame_buffers(GAME_MODE) != 0) return 1;
+    if(build_buffers(GAME_MODE) != 0) return 1;
 
     prepare_sprites();
     
@@ -56,13 +55,10 @@ int finish_game(){
 
 int (proj_main_loop)(int argc, char *argv[]) {
 
-  // Setup do Minix
   if (prepare_game() != 0) return finish_game();
 
-  // Desenha a primeira frame
-  draw_new_frame();
+  draw_frame();
 
-  // Tratamento das interrupções
   int ipc_status;
   message msg;
   while (systemstate == ON) {
@@ -75,13 +71,12 @@ int (proj_main_loop)(int argc, char *argv[]) {
     if (is_ipc_notify(ipc_status)) {
       switch(_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: 
-          if (msg.m_notify.interrupts & TIMER_MASK)    update_timer_state();
-          if (msg.m_notify.interrupts & KEYBOARD_MASK) update_keyboard_state();
+          if (msg.m_notify.interrupts & TIMER_MASK)    update_timer();
+          if (msg.m_notify.interrupts & KEYBOARD_MASK) update_keyboard();
         }
     }
   }
   
-  // Tear-down do Minix
   if (finish_game() != 0) return 1;
 
   return 0;
