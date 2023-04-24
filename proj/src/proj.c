@@ -76,7 +76,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
         case HARDWARE: 
           if (msg.m_notify.interrupts & TIMER_MASK)    update_timer();
           if (msg.m_notify.interrupts & KEYBOARD_MASK) update_keyboard();
-          if (msg.m_notify.interrupts & KEYBOARD_MASK) update_mouse();
+          if (msg.m_notify.interrupts & MOUSE_MASK) update_mouse();
         }
     }
   }
