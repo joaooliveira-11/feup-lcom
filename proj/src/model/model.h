@@ -11,7 +11,11 @@
 
 #include "xpm/hand.xpm"
 #include "xpm/mouse.xpm"
-#include "xpm/smile.xpm"
+#include "xpm/background_final.xpm"
+#include "xpm/button_inst.xpm"
+#include "xpm/button_multi.xpm"
+#include "xpm/button_play.xpm"
+#include "xpm/button_quit.xpm"
 #include "view/view.h"
 
 
