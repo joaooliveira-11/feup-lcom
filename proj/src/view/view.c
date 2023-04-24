@@ -7,12 +7,17 @@ uint32_t frame_buffer_size;
 extern vbe_mode_info_t vbe_mode_info;
 extern GameState gamestate;
 extern mouse_t mouse_packet;
-extern sprite_t *smile;
 extern sprite_t *mouse;
 extern sprite_t *button1;
 extern sprite_t *button2;
 extern sprite_t *button3;
 extern sprite_t *button4;
+extern sprite_t *play_button;
+extern sprite_t *quit_button;
+extern sprite_t *inst_button;
+extern sprite_t *multi_button;
+extern sprite_t *initial_screen_background;
+
 
 int build_buffers(uint16_t mode) {
     if (frame_buffer_build(mode, &first_frame_buffer)) return 1;
@@ -43,8 +48,11 @@ void draw_frame() {
 }
 
 void draw_initial_menu_screen() {
-    draw_rectangle(0, 0, vbe_mode_info.XResolution, vbe_mode_info.YResolution, RED, active_buffer);
-    draw_sprite_xpm(smile, vbe_mode_info.XResolution/2 - 100, vbe_mode_info.YResolution/2 - 100);
+    draw_sprite_xpm(initial_screen_background, 0, 0);
+    draw_sprite_xpm(play_button, 35, 235);
+    draw_sprite_xpm(quit_button, 560, 365);
+    draw_sprite_xpm(inst_button, 35, 365);
+    draw_sprite_xpm(multi_button, 560, 235);
 }
 
 void draw_game_screen(){
