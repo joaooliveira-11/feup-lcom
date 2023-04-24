@@ -9,6 +9,7 @@
 
 uint8_t TIMER_MASK, KEYBOARD_MASK, MOUSE_MASK;
 extern SystemState systemstate;
+extern mouse_t mouse_packet;
 
 int main(int argc, char *argv[]) {
   lcf_set_language("EN-US");
@@ -28,13 +29,15 @@ int (prepare_game)(){
 
     prepare_sprites();
     
-    //if(mouse_write(0xEA) != 0) return 1; // enable steam mode
-    //if(mouse_write(0xF4) != 0) return 1; // enable data report
+    if(mouse_write(0xEA) != 0) return 1; // enable steam mode
+    if(mouse_write(0xF4) != 0) return 1; // enable data report
 
     if(timer_subscribe_int(&TIMER_MASK) != 0) return 1;
     if(keyboard_subscribe_int(&KEYBOARD_MASK) != 0) return 1;
-    //if(mouse_subscribe_int(&MOUSE_MASK) != 0) return 1;
+    if(mouse_subscribe_int(&MOUSE_MASK) != 0) return 1;
 
+    mouse_packet.xpos = 50;
+    mouse_packet.ypos = 50;
     return 0;
 }
 
@@ -46,9 +49,9 @@ int finish_game(){
 
   if(timer_unsubscribe_int() != 0) return 1;
   if(keyboard_unsubscribe_int() != 0) return 1;
-  //if(mouse_unsubscribe_int() != 0) return 1;
+  if(mouse_unsubscribe_int() != 0) return 1;
 
-  //if (mouse_write(0xF5) != 0) return 1;  // disable data report
+  if (mouse_write(0xF5) != 0) return 1;  // disable data report
 
   return 0;
 }
@@ -73,6 +76,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
         case HARDWARE: 
           if (msg.m_notify.interrupts & TIMER_MASK)    update_timer();
           if (msg.m_notify.interrupts & KEYBOARD_MASK) update_keyboard();
+          if (msg.m_notify.interrupts & KEYBOARD_MASK) update_mouse();
         }
     }
   }

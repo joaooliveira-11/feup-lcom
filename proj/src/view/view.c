@@ -6,8 +6,9 @@ uint8_t *active_buffer;
 uint32_t frame_buffer_size;
 extern vbe_mode_info_t vbe_mode_info;
 extern GameState gamestate;
-
+extern mouse_t mouse_packet;
 extern sprite_t *smile;
+extern sprite_t *mouse;
 extern sprite_t *button1;
 extern sprite_t *button2;
 extern sprite_t *button3;
@@ -38,6 +39,7 @@ void draw_frame() {
             draw_game_screen();
             break;
     }
+    draw_newMouse_pos();
 }
 
 void draw_initial_menu_screen() {
@@ -76,4 +78,8 @@ int draw_sprite_button(sprite_t *sprite, int x, int y) {
       }
     }
     return 0; 
+}
+
+void draw_newMouse_pos(){
+    draw_sprite_xpm(mouse, mouse_packet.xpos, mouse_packet.ypos);
 }

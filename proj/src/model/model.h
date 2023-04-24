@@ -32,5 +32,6 @@ void prepare_sprites();
 void delete_sprites();
 void update_timer();
 void update_keyboard();
+void update_mouse();
 
 #endif
