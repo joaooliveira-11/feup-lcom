@@ -4,7 +4,8 @@ int mouse_hook_id = 2;
 uint8_t mouse_current_byte;
 uint8_t mouse_byte_index = 0;
 uint8_t mouse_bytes[3];
-struct packet mouse_packet;
+mouse_t mouse_packet;
+extern vbe_mode_info_t vbe_mode_info;
 
 int (mouse_subscribe_int)(uint8_t *bit_no){
     if(bit_no == NULL) return 1;
@@ -48,10 +49,14 @@ void (mouse_bytes_to_packet)(){
 
     mouse_packet.x_ov = mouse_bytes[0] & BIT(6); // overflow no deslocamento em x
     mouse_packet.y_ov = mouse_bytes[0] & BIT(7); // overflow no deslocamento em y
+    if(mouse_packet.x_ov || mouse_packet.y_ov) return;
 
     mouse_packet.delta_x = (mouse_bytes[0] & BIT(4)) ? (0XFF00 | mouse_bytes[1]) : mouse_bytes[1]; // se o descolamento for negativo inverter para ter o valor absoluto
     mouse_packet.delta_y = (mouse_bytes[0] & BIT(5)) ? (0XFF00 | mouse_bytes[2]) : mouse_bytes[2];  // se o descolamento for negativo inverter para ter o valor absoluto
-    // duvidoso 0xFF00 mas a lcf aceita
+    
+    if(mouse_packet.xpos + mouse_packet.delta_x < 0 || mouse_packet.ypos - mouse_packet.delta_y < 0 || mouse_packet.xpos + mouse_packet.delta_x > vbe_mode_info.XResolution || mouse_packet.ypos - mouse_packet.delta_y > vbe_mode_info.YResolution) return;
+    mouse_packet.xpos += mouse_packet.delta_x;
+    mouse_packet.ypos -= mouse_packet.delta_y;
 }
 
 int (mouse_write)(uint8_t command){

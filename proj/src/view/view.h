@@ -11,6 +11,7 @@
 void draw_frame();
 void draw_initial_menu_screen();
 void draw_game_screen();
+void draw_newMouse_pos();
 void buffer_swap();
 int draw_sprite_xpm(sprite_t *sprite, int x, int y);
 int draw_sprite_button(sprite_t *sprite, int x, int y);

@@ -1,9 +1,11 @@
 #include "model.h"
 
 extern uint8_t scancode;
+extern uint8_t mouse_byte_index; 
 SystemState systemstate = ON;
 GameState gamestate = START_MENU;
 extern vbe_mode_info_t vbe_mode_info;
+extern mouse_t mouse_packet;
 
 sprite_t *mouse;
 sprite_t *button1;
@@ -62,4 +64,14 @@ void update_keyboard() {
             break;
     }
     draw_frame();
+}
+
+void update_mouse(){
+    mouse_ih();
+    mouse_sync_bytes();
+    if(mouse_byte_index == 3){
+        mouse_bytes_to_packet();
+        draw_frame();
+        mouse_byte_index = 0;
+    }
 }

@@ -9,7 +9,6 @@
 #include "sprite.h"
 #include "../game_conf.h"
 
-#include "xpm/hand.xpm"
 #include "xpm/mouse.xpm"
 #include "xpm/background_final.xpm"
 #include "xpm/button_inst.xpm"
@@ -36,5 +35,6 @@ void prepare_sprites();
 void delete_sprites();
 void update_timer();
 void update_keyboard();
+void update_mouse();
 
 #endif
