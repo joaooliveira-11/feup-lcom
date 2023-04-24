@@ -16,5 +16,5 @@ void buffer_swap();
 int draw_sprite_xpm(sprite_t *sprite, int x, int y);
 int draw_sprite_button(sprite_t *sprite, int x, int y);
 int build_buffers(uint16_t mode);
-
+void check_mouse_clicks();
 #endif

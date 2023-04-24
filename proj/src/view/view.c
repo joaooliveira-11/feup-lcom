@@ -6,6 +6,7 @@ uint8_t *active_buffer;
 uint32_t frame_buffer_size;
 extern vbe_mode_info_t vbe_mode_info;
 extern GameState gamestate;
+extern SystemState systemstate;
 extern mouse_t mouse_packet;
 extern sprite_t *mouse;
 extern sprite_t *button1;
@@ -36,6 +37,11 @@ void buffer_swap() {
 }
 
 void draw_frame() {
+    if(quit_button->is_pressed){
+        systemstate = OFF;
+        return;
+    }
+    if(play_button->is_pressed) gamestate = PLAYING;
     switch (gamestate) {
         case START_MENU:
             draw_initial_menu_screen();
@@ -90,4 +96,23 @@ int draw_sprite_button(sprite_t *sprite, int x, int y) {
 
 void draw_newMouse_pos(){
     draw_sprite_xpm(mouse, mouse_packet.xpos, mouse_packet.ypos);
+}
+
+void check_mouse_clicks(){
+    if(mouse_packet.lb){
+        if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 235 && mouse_packet.ypos <= 332){
+            play_button->is_pressed = 1;
+        }
+        if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
+            inst_button->is_pressed = 1;
+        }
+        if(mouse_packet.xpos >= 560 && mouse_packet.xpos <= 760 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
+            quit_button->is_pressed = 1;
+        }
+    }
+    else{
+        play_button->is_pressed = 0;
+        quit_button->is_pressed = 0;
+        inst_button->is_pressed = 0;
+    }
 }

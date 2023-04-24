@@ -72,6 +72,7 @@ void update_mouse(){
     if(mouse_byte_index == 3){
         mouse_bytes_to_packet();
         draw_frame();
+        check_mouse_clicks();
         mouse_byte_index = 0;
     }
 }
