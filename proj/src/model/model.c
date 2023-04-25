@@ -13,6 +13,7 @@ sprite_t *button2;
 sprite_t *button3;
 sprite_t *button4;
 sprite_t *initial_screen_background;
+sprite_t *instructions_screen;
 sprite_t *play_button;
 sprite_t *quit_button;
 sprite_t *inst_button;
@@ -21,6 +22,7 @@ sprite_t *multi_button;
 void prepare_sprites(){
     mouse = sprite_build((xpm_map_t) mouse_xpm);
     initial_screen_background = sprite_build((xpm_map_t) background_final_xpm);
+    instructions_screen = sprite_build((xpm_map_t) instructions_xpm);
     play_button = sprite_build((xpm_map_t) button_play_xpm);
     quit_button = sprite_build((xpm_map_t) button_quit_xpm);
     inst_button = sprite_build((xpm_map_t) button_inst_xpm);
@@ -38,6 +40,7 @@ void delete_sprites(){
     sprite_delete(button3);
     sprite_delete(button4);
     sprite_delete(initial_screen_background);
+    sprite_delete(instructions_screen);
     sprite_delete(play_button);
     sprite_delete(quit_button);
     sprite_delete(inst_button);

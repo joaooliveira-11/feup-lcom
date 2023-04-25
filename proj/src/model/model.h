@@ -11,6 +11,7 @@
 
 #include "xpm/mouse.xpm"
 #include "xpm/background_final.xpm"
+#include "xpm/instructions.xpm"
 #include "xpm/button_inst.xpm"
 #include "xpm/button_multi.xpm"
 #include "xpm/button_play.xpm"
@@ -27,7 +28,7 @@ typedef enum {
     START_MENU,
     //GAMEWIN_MENU,
     //GAMEOVER_MENU,
-    //INSTRUCTIONS_MENU,
+    INSTRUCTIONS_MENU,
     PLAYING,
 } GameState;
 

@@ -18,6 +18,8 @@ extern sprite_t *quit_button;
 extern sprite_t *inst_button;
 extern sprite_t *multi_button;
 extern sprite_t *initial_screen_background;
+extern sprite_t *instructions_screen;
+
 
 
 int build_buffers(uint16_t mode) {
@@ -42,12 +44,17 @@ void draw_frame() {
         return;
     }
     if(play_button->is_pressed) gamestate = PLAYING;
+    if(inst_button->is_pressed) gamestate = INSTRUCTIONS_MENU;
+
     switch (gamestate) {
         case START_MENU:
             draw_initial_menu_screen();
             break;
         case PLAYING:
             draw_game_screen();
+            break;
+        case INSTRUCTIONS_MENU:
+            draw_instructions_menu_screen();
             break;
     }
     draw_newMouse_pos();
@@ -59,6 +66,12 @@ void draw_initial_menu_screen() {
     draw_sprite_xpm(quit_button, 560, 365);
     draw_sprite_xpm(inst_button, 35, 365);
     draw_sprite_xpm(multi_button, 560, 235);
+}
+
+void draw_instructions_menu_screen() {
+    draw_sprite_xpm(instructions_screen, 0, 0);
+    // draw_sprite_xpm(back_button, 35, 235);
+    
 }
 
 void draw_game_screen(){

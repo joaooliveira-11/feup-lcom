@@ -10,6 +10,7 @@
 
 void draw_frame();
 void draw_initial_menu_screen();
+void draw_instructions_menu_screen();
 void draw_game_screen();
 void draw_newMouse_pos();
 void buffer_swap();
