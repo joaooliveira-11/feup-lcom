@@ -16,6 +16,7 @@
 #include "xpm/button_multi.xpm"
 #include "xpm/button_play.xpm"
 #include "xpm/button_quit.xpm"
+#include "xpm/button_back.xpm"
 #include "view/view.h"
 
 

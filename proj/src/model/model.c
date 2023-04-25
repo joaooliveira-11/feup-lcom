@@ -18,6 +18,7 @@ sprite_t *play_button;
 sprite_t *quit_button;
 sprite_t *inst_button;
 sprite_t *multi_button;
+sprite_t *back_button;
 
 void prepare_sprites(){
     mouse = sprite_build((xpm_map_t) mouse_xpm);
@@ -27,6 +28,7 @@ void prepare_sprites(){
     quit_button = sprite_build((xpm_map_t) button_quit_xpm);
     inst_button = sprite_build((xpm_map_t) button_inst_xpm);
     multi_button = sprite_build((xpm_map_t) button_multi_xpm);
+    back_button = sprite_build((xpm_map_t) button_back_xpm);
     button1 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, ORANGE);
     button2 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, BLUE);
     button3 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, GREEN);
@@ -45,6 +47,7 @@ void delete_sprites(){
     sprite_delete(quit_button);
     sprite_delete(inst_button);
     sprite_delete(multi_button);
+    sprite_delete(back_button);
 }
 
 void update_timer() {

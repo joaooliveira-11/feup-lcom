@@ -19,7 +19,7 @@ extern sprite_t *inst_button;
 extern sprite_t *multi_button;
 extern sprite_t *initial_screen_background;
 extern sprite_t *instructions_screen;
-
+extern sprite_t *back_button;
 
 
 int build_buffers(uint16_t mode) {
@@ -45,6 +45,7 @@ void draw_frame() {
     }
     if(play_button->is_pressed) gamestate = PLAYING;
     if(inst_button->is_pressed) gamestate = INSTRUCTIONS_MENU;
+    if(back_button->is_pressed) gamestate = START_MENU;
 
     switch (gamestate) {
         case START_MENU:
@@ -70,8 +71,7 @@ void draw_initial_menu_screen() {
 
 void draw_instructions_menu_screen() {
     draw_sprite_xpm(instructions_screen, 0, 0);
-    // draw_sprite_xpm(back_button, 35, 235);
-    
+    draw_sprite_xpm(back_button, 607, 495);
 }
 
 void draw_game_screen(){
@@ -113,19 +113,33 @@ void draw_newMouse_pos(){
 
 void check_mouse_clicks(){
     if(mouse_packet.lb){
-        if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 235 && mouse_packet.ypos <= 332){
-            play_button->is_pressed = 1;
+        switch(gamestate) {
+            case START_MENU:{
+                if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 235 && mouse_packet.ypos <= 332){
+                    play_button->is_pressed = 1;
+                }
+                if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
+                    inst_button->is_pressed = 1;
+                }
+                if(mouse_packet.xpos >= 560 && mouse_packet.xpos <= 760 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
+                    quit_button->is_pressed = 1;
+                }
+                break;
+            }
+            case INSTRUCTIONS_MENU:
+                if(mouse_packet.xpos >= 607 && mouse_packet.xpos <= 777 && mouse_packet.ypos >= 495 && mouse_packet.ypos <= 577){
+                  back_button->is_pressed = 1;
+                }  
+                break;   
+            default:
+                break;
         }
-        if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
-            inst_button->is_pressed = 1;
-        }
-        if(mouse_packet.xpos >= 560 && mouse_packet.xpos <= 760 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
-            quit_button->is_pressed = 1;
-        }
+        
     }
     else{
         play_button->is_pressed = 0;
         quit_button->is_pressed = 0;
         inst_button->is_pressed = 0;
+        back_button->is_pressed = 0;
     }
 }
