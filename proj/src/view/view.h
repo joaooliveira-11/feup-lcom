@@ -14,8 +14,8 @@ void draw_instructions_menu_screen();
 void draw_game_screen();
 void draw_newMouse_pos();
 void buffer_swap();
-int draw_sprite_xpm(sprite_t *sprite, int x, int y);
+int draw_sprite_xpm(sprite_t *sprite);
 int draw_sprite_button(sprite_t *sprite, int x, int y);
-int build_buffers(uint16_t mode);
+int allocate_double_buffer(uint16_t mode);
 void check_mouse_clicks();
 #endif

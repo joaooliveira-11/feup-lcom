@@ -21,17 +21,53 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int (prepare_game)(){
+void(prepare_menus)(){
+  create_menu_sprites();
+  create_menu_buttons();
+  create_instructions_sprites();
+  create_instructions_buttons();
+}
+
+void(prepare_game)(){
+  //create_game_sprites();
+  create_game_buttons();
+}
+
+void(prepare_mouse)(){
+  create_mouse_sprite();
+}
+
+void(delete_menus)(){
+  create_menu_sprites();
+  create_menu_buttons();
+  create_instructions_sprites();
+  create_instructions_buttons();
+}
+
+void(delete_game)(){
+  //delete_game_sprites();
+  delete_game_buttons();
+}
+
+void(delete_mouse)(){
+  delete_mouse_sprite();
+}
+
+int (prepare_project)(){
 
     if(timer_set_frequency(0, GAMEFPS) != 0) return 1;
     if(changeTo_graphic_mode(GAME_MODE) != 0) return 1;
-    if(build_buffers(GAME_MODE) != 0) return 1;
+    if(allocate_double_buffer(GAME_MODE) != 0) return 1;
 
-    prepare_sprites();
+    prepare_menus();
+    prepare_game();
+    prepare_mouse();
     
     if(mouse_write(0xEA) != 0) return 1; // enable steam mode
     if(mouse_write(0xF4) != 0) return 1; // enable data report
 
+
+    // Ativar Interrupções
     if(timer_subscribe_int(&TIMER_MASK) != 0) return 1;
     if(keyboard_subscribe_int(&KEYBOARD_MASK) != 0) return 1;
     if(mouse_subscribe_int(&MOUSE_MASK) != 0) return 1;
@@ -41,12 +77,15 @@ int (prepare_game)(){
     return 0;
 }
 
-int finish_game(){
+int (finish_project)(){
 
   if(vg_exit() != 0) return 1;
 
-  delete_sprites();
+  delete_menus();
+  delete_game();
+  delete_mouse();
 
+  // Desativar Interrupções
   if(timer_unsubscribe_int() != 0) return 1;
   if(keyboard_unsubscribe_int() != 0) return 1;
   if(mouse_unsubscribe_int() != 0) return 1;
@@ -58,7 +97,10 @@ int finish_game(){
 
 int (proj_main_loop)(int argc, char *argv[]) {
 
-  if (prepare_game() != 0) return finish_game();
+  if(prepare_project() != 0){
+    if(finish_project() != 0) return 1;
+    return 0;
+  }
 
   draw_frame();
 
@@ -81,7 +123,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
     }
   }
   
-  if (finish_game() != 0) return 1;
+  if(finish_project() != 0) return 1;
 
   return 0;
 }

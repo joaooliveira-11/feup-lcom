@@ -33,8 +33,29 @@ typedef enum {
     PLAYING,
 } GameState;
 
-void prepare_sprites();
-void delete_sprites();
+
+void create_mouse_sprite();
+
+void create_menu_sprites();
+void create_menu_buttons();
+
+void create_instructions_sprites();
+void create_instructions_buttons();
+
+void create_game_sprites();
+void create_game_buttons();
+
+void delete_mouse_sprite();
+
+void delete_menu_sprites();
+void delete_menu_buttons();
+
+void delete_instructions_sprites();
+void delete_instructions_buttons();
+
+void delete_game_sprites();
+void delete_game_buttons();
+
 void update_timer();
 void update_keyboard();
 void update_mouse();

@@ -28,6 +28,19 @@ sprite_t *create_sprite_button(uint16_t width, uint16_t height, uint32_t color){
   return sprite;
 }
 
+void set_sprite_xpos(sprite_t *sprite, uint16_t x){
+    sprite->xpos = x;
+}
+
+void set_sprite_ypos(sprite_t *sprite, uint16_t y){
+    sprite->ypos = y;
+}
+uint16_t get_sprite_xpos(sprite_t *sprite){
+    return sprite->xpos;
+}
+uint16_t get_sprite_ypos(sprite_t *sprite){
+    return sprite->ypos;
+}
 
 void (sprite_delete)(sprite_t * sprite){
     free(sprite->colors_array);

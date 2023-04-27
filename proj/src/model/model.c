@@ -20,34 +20,80 @@ sprite_t *inst_button;
 sprite_t *multi_button;
 sprite_t *back_button;
 
-void prepare_sprites(){
+void create_mouse_sprite(){
     mouse = sprite_build((xpm_map_t) mouse_xpm);
+}
+
+void create_menu_sprites(){
     initial_screen_background = sprite_build((xpm_map_t) background_final_xpm);
-    instructions_screen = sprite_build((xpm_map_t) instructions_xpm);
+    set_sprite_xpos(initial_screen_background, 0);
+    set_sprite_ypos(initial_screen_background, 0);
+}
+void create_menu_buttons(){
+
     play_button = sprite_build((xpm_map_t) button_play_xpm);
+    set_sprite_xpos(play_button, 35);
+    set_sprite_ypos(play_button, 235);
+
     quit_button = sprite_build((xpm_map_t) button_quit_xpm);
+    set_sprite_xpos(quit_button, 560);
+    set_sprite_ypos(quit_button, 365);
+
     inst_button = sprite_build((xpm_map_t) button_inst_xpm);
+    set_sprite_xpos(inst_button, 35);
+    set_sprite_ypos(inst_button, 365);
+
     multi_button = sprite_build((xpm_map_t) button_multi_xpm);
+    set_sprite_xpos(multi_button, 560);
+    set_sprite_ypos(multi_button, 235);
+}
+
+void create_instructions_sprites(){
+    instructions_screen = sprite_build((xpm_map_t) instructions_xpm);
+    set_sprite_xpos(instructions_screen, 0);
+    set_sprite_ypos(instructions_screen, 0);
+}
+void create_instructions_buttons(){
     back_button = sprite_build((xpm_map_t) button_back_xpm);
+    set_sprite_xpos(back_button, 607);
+    set_sprite_ypos(back_button, 495);
+}
+
+//void create_game_sprites();
+void create_game_buttons(){
     button1 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, ORANGE);
     button2 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, BLUE);
     button3 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, GREEN);
     button4 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, YELLOW);
-    
 }
-void delete_sprites(){
+
+void delete_mouse_sprite(){
     sprite_delete(mouse);
-    sprite_delete(button1);
-    sprite_delete(button2);
-    sprite_delete(button3);
-    sprite_delete(button4);
+}
+
+void delete_menu_sprites(){
     sprite_delete(initial_screen_background);
-    sprite_delete(instructions_screen);
+}
+void delete_menu_buttons(){
     sprite_delete(play_button);
     sprite_delete(quit_button);
     sprite_delete(inst_button);
     sprite_delete(multi_button);
+}
+
+void delete_instructions_sprites(){
+    sprite_delete(instructions_screen);
+}
+void delete_instructions_buttons(){
     sprite_delete(back_button);
+}
+
+//void delete_game_sprites();
+void delete_game_buttons(){
+    sprite_delete(button1);
+    sprite_delete(button2);
+    sprite_delete(button3);
+    sprite_delete(button4);
 }
 
 void update_timer() {
