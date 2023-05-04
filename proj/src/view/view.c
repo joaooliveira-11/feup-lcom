@@ -63,29 +63,25 @@ void draw_frame() {
 }
 
 void draw_initial_menu_screen() {
-    draw_sprite_xpm(initial_screen_background);
-    draw_sprite_xpm(play_button);
-    draw_sprite_xpm(quit_button);
-    draw_sprite_xpm(inst_button);
-    draw_sprite_xpm(multi_button);
+    draw_staticSprite_xpm(initial_screen_background, 0,0);
+    draw_staticSprite_xpm(play_button,35,235);
+    draw_staticSprite_xpm(quit_button,560,365);
+    draw_staticSprite_xpm(inst_button,35,365);
+    draw_staticSprite_xpm(multi_button,560,235);
 }
 
 void draw_instructions_menu_screen() {
-    draw_sprite_xpm(instructions_screen);
-    draw_sprite_xpm(back_button);
+    draw_staticSprite_xpm(instructions_screen,0,0);
+    draw_staticSprite_xpm(back_button, 607,495);
 }
 
 void draw_game_screen(){
-    draw_sprite_xpm(game_screen);
-    draw_sprite_xpm(boy);
-    draw_sprite_xpm(girl);
-    /*draw_sprite_button(button1, 0, 0);
-    draw_sprite_button(button2, vbe_mode_info.XResolution/2, 0);
-    draw_sprite_button(button3, 0, vbe_mode_info.YResolution/2);
-    draw_sprite_button(button4, vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2);*/
+    draw_staticSprite_xpm(game_screen,0,0);
+    draw_movingSprite_xpm(boy);
+    draw_movingSprite_xpm(girl);
 }
 
-int draw_sprite_xpm(sprite_t *sprite) { 
+int draw_movingSprite_xpm(sprite_t *sprite) { 
     uint16_t sprite_xpos = get_sprite_xpos(sprite);
     uint16_t sprite_ypos = get_sprite_ypos(sprite);
     uint32_t current_color;
@@ -99,13 +95,15 @@ int draw_sprite_xpm(sprite_t *sprite) {
     return 0; 
 }
 
-int draw_sprite_button(sprite_t *sprite, int x, int y) { 
-    uint16_t height = sprite->height;
-    uint16_t width = sprite->width;
-    uint32_t color = sprite->is_pressed ? MOUSE_PRESS : sprite->main_color;
-    for (int h = 0 ; h < height ; h++) {
-      for (int w = 0 ; w < width ; w++) {
-        if (color_pixel(x + w, y + h, color, second_frame_buffer) != 0) return 1;
+int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y) { 
+    uint16_t sprite_xpos = x;
+    uint16_t sprite_ypos = y;
+    uint32_t current_color;
+    for (int y = 0 ; y < sprite->height ; y++) {
+      for (int x = 0 ; x < sprite->width ; x++) {
+        current_color = sprite->colors_array[x + y*sprite->width];
+        if (current_color == TRANSPARENT) continue;
+        if (color_pixel(sprite_xpos + x, sprite_ypos + y, current_color, second_frame_buffer) != 0) return 1;
       }
     }
     return 0; 
@@ -114,7 +112,7 @@ int draw_sprite_button(sprite_t *sprite, int x, int y) {
 void draw_newMouse_pos(){
     set_sprite_xpos(mouse, mouse_packet.xpos);
     set_sprite_ypos(mouse, mouse_packet.ypos);
-    draw_sprite_xpm(mouse);
+    draw_movingSprite_xpm(mouse);
 }
 
 void check_mouse_clicks(){
@@ -149,3 +147,4 @@ void check_mouse_clicks(){
         back_button->is_pressed = 0;
     }
 }
+

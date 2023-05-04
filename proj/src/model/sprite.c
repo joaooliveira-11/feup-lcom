@@ -18,16 +18,6 @@ sprite_t *(sprite_build)(xpm_map_t xpm){
     return sprite;
 }
 
-sprite_t *create_sprite_button(uint16_t width, uint16_t height, uint32_t color){
-  sprite_t *sprite = (sprite_t *) malloc(sizeof(sprite_t));
-  sprite->height = height;
-  sprite->width = width;
-  sprite->colors_array = NULL;
-  sprite->main_color = color;
-  sprite->is_pressed = 0;
-  return sprite;
-}
-
 void set_sprite_xpos(sprite_t *sprite, uint16_t x){
     sprite->xpos = x;
 }

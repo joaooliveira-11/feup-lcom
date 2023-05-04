@@ -30,7 +30,6 @@ void(prepare_menus)(){
 
 void(prepare_game)(){
   create_game_sprites();
-  //create_game_buttons();
 }
 
 void(prepare_mouse)(){
@@ -38,15 +37,14 @@ void(prepare_mouse)(){
 }
 
 void(delete_menus)(){
-  create_menu_sprites();
-  create_menu_buttons();
-  create_instructions_sprites();
-  create_instructions_buttons();
+  delete_menu_sprites();
+  delete_menu_buttons();
+  delete_instructions_sprites();
+  delete_instructions_buttons();
 }
 
 void(delete_game)(){
   delete_game_sprites();
-  //delete_game_buttons();
 }
 
 void(delete_mouse)(){

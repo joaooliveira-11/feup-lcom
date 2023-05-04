@@ -18,7 +18,7 @@ typedef struct sprite sprite_t;
 
 sprite_t *(sprite_build)(xpm_map_t xpm);
 void (sprite_delete)(sprite_t * sprite);
-sprite_t *create_sprite_button(uint16_t width, uint16_t height, uint32_t color);
+
 
 void set_sprite_xpos(sprite_t *sprite, uint16_t x);
 void set_sprite_ypos(sprite_t *sprite, uint16_t y);
