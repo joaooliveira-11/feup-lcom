@@ -19,6 +19,13 @@ sprite_t *quit_button;
 sprite_t *inst_button;
 sprite_t *multi_button;
 sprite_t *back_button;
+sprite_t *game_screen;
+sprite_t *boy;
+sprite_t *girl;
+sprite_t *boy_left;
+sprite_t *boy_right;
+sprite_t *girl_left;
+sprite_t *girl_right;
 
 void create_mouse_sprite(){
     mouse = sprite_build((xpm_map_t) mouse_xpm);
@@ -29,6 +36,7 @@ void create_menu_sprites(){
     set_sprite_xpos(initial_screen_background, 0);
     set_sprite_ypos(initial_screen_background, 0);
 }
+
 void create_menu_buttons(){
 
     play_button = sprite_build((xpm_map_t) button_play_xpm);
@@ -53,19 +61,38 @@ void create_instructions_sprites(){
     set_sprite_xpos(instructions_screen, 0);
     set_sprite_ypos(instructions_screen, 0);
 }
+
 void create_instructions_buttons(){
     back_button = sprite_build((xpm_map_t) button_back_xpm);
     set_sprite_xpos(back_button, 607);
     set_sprite_ypos(back_button, 495);
 }
 
-//void create_game_sprites();
+void create_game_sprites(){
+    game_screen = sprite_build((xpm_map_t) game_backgroung_xpm);
+    set_sprite_xpos(game_screen, 0);
+    set_sprite_ypos(game_screen, 0);
+
+    boy = sprite_build((xpm_map_t) fireboy_xpm);
+    set_sprite_xpos(boy, 35);
+    set_sprite_ypos(boy, 235);
+
+    girl = sprite_build((xpm_map_t) watergirl_xpm);
+    set_sprite_xpos(girl, 35);
+    set_sprite_ypos(girl, 365);
+
+    boy_left = sprite_build((xpm_map_t) running_left_boy_xpm);
+    boy_right = sprite_build((xpm_map_t) running_right_boy_xpm);
+    girl_left = sprite_build((xpm_map_t) running_left_girl_xpm);
+    girl_right = sprite_build((xpm_map_t) running_right_girl_xpm); 
+}
+/*
 void create_game_buttons(){
     button1 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, ORANGE);
     button2 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, BLUE);
     button3 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, GREEN);
     button4 = create_sprite_button(vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2, YELLOW);
-}
+}*/
 
 void delete_mouse_sprite(){
     sprite_delete(mouse);
@@ -88,7 +115,16 @@ void delete_instructions_buttons(){
     sprite_delete(back_button);
 }
 
-//void delete_game_sprites();
+void delete_game_sprites(){
+    sprite_delete(game_screen);
+    sprite_delete(boy);
+    sprite_delete(boy_left);
+    sprite_delete(boy_right);
+    sprite_delete(girl_left);
+    sprite_delete(girl_right);
+    sprite_delete(girl);
+}
+
 void delete_game_buttons(){
     sprite_delete(button1);
     sprite_delete(button2);

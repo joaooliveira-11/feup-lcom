@@ -29,8 +29,8 @@ void(prepare_menus)(){
 }
 
 void(prepare_game)(){
-  //create_game_sprites();
-  create_game_buttons();
+  create_game_sprites();
+  //create_game_buttons();
 }
 
 void(prepare_mouse)(){
@@ -45,8 +45,8 @@ void(delete_menus)(){
 }
 
 void(delete_game)(){
-  //delete_game_sprites();
-  delete_game_buttons();
+  delete_game_sprites();
+  //delete_game_buttons();
 }
 
 void(delete_mouse)(){

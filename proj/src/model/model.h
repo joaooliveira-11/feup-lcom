@@ -17,6 +17,14 @@
 #include "xpm/button_play.xpm"
 #include "xpm/button_quit.xpm"
 #include "xpm/button_back.xpm"
+#include "xpm/game_backgroung.xpm"
+#include "xpm/fireboy.xpm"
+#include "xpm/running_left_boy.xpm"
+#include "xpm/running_right_boy.xpm"
+#include "xpm/watergirl.xpm"
+#include "xpm/running_left_girl.xpm"
+#include "xpm/running_right_girl.xpm"
+
 #include "view/view.h"
 
 

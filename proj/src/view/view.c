@@ -19,6 +19,13 @@ extern sprite_t *multi_button;
 extern sprite_t *initial_screen_background;
 extern sprite_t *instructions_screen;
 extern sprite_t *back_button;
+extern sprite_t *game_screen;
+extern sprite_t *boy;
+extern sprite_t *girl;
+extern sprite_t *boy_left;
+extern sprite_t *boy_right;
+extern sprite_t *girl_left;
+extern sprite_t *girl_right;
 
 
 int allocate_double_buffer(uint16_t mode) {
@@ -69,10 +76,13 @@ void draw_instructions_menu_screen() {
 }
 
 void draw_game_screen(){
-    draw_sprite_button(button1, 0, 0);
+    draw_sprite_xpm(game_screen);
+    draw_sprite_xpm(boy);
+    draw_sprite_xpm(girl);
+    /*draw_sprite_button(button1, 0, 0);
     draw_sprite_button(button2, vbe_mode_info.XResolution/2, 0);
     draw_sprite_button(button3, 0, vbe_mode_info.YResolution/2);
-    draw_sprite_button(button4, vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2);
+    draw_sprite_button(button4, vbe_mode_info.XResolution/2, vbe_mode_info.YResolution/2);*/
 }
 
 int draw_sprite_xpm(sprite_t *sprite) { 
