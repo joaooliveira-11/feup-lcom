@@ -22,12 +22,14 @@ sprite_t *boy_left;
 sprite_t *boy_right;
 sprite_t *girl_left;
 sprite_t *girl_right;
+sprite_t *wall;
 
 
 void allocate_screens(){
     initial_screen_background = sprite_build((xpm_map_t) background_final_xpm);
     instructions_screen = sprite_build((xpm_map_t) instructions_xpm);
     game_screen = sprite_build((xpm_map_t) game_backgroung_xpm);
+    wall = sprite_build((xpm_map_t) wall_xpm);
 }
 
 void allocate_game_elements(){
@@ -71,6 +73,7 @@ void delete_screens(){
     sprite_delete(initial_screen_background);
     sprite_delete(instructions_screen);
     sprite_delete(game_screen);
+    sprite_delete(wall);
 }
 
 void delete_game_elements(){

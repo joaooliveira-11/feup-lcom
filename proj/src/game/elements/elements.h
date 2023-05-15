@@ -24,6 +24,7 @@
 #include "xpms/players/watergirl.xpm"
 #include "xpms/players/running_left_girl.xpm"
 #include "xpms/players/running_right_girl.xpm"
+#include "xpms/game_elements/wall.xpm"
 
 void allocate_screens();
 void allocate_game_elements();
