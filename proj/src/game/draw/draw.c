@@ -23,9 +23,55 @@ extern sprite_t *boy_left;
 extern sprite_t *boy_right;
 extern sprite_t *girl_left;
 extern sprite_t *girl_right;
+extern sprite_t *wall;
 
 extern watergirl_t watergirl;
 extern fireboy_t fireboy;
+
+
+int draw_map(){
+    char buf[1024];
+    if (getcwd(buf, sizeof(buf)) != NULL) {
+        printf("Current working directory: %s\n", buf);
+    } else {
+        perror("getcwd() error");
+        return 1;
+    }
+
+    char *filename = "/home/lcom/labs/g1/proj/src/game/draw/map.txt";
+
+    FILE *ptr;
+    char ch = '\0';
+    ptr = fopen(filename, "r");
+
+
+    
+    if(ptr == NULL){
+        printf("file cant open");
+        return 1;
+    }
+    int x = 0;
+    int y = 0;
+
+
+    while(ch != EOF){
+        ch = fgetc(ptr);
+        if(ch == 'x'){
+             x++;
+        }
+        if(ch == '-'){
+            draw_staticSprite_xpm(wall, x*20, y*20);
+            x++;
+        }if(ch == '|'){
+                y++;
+                x = 0;
+            }
+        }
+
+    fclose(ptr);
+
+    return 0;
+}
 
 int allocate_double_buffer(uint16_t mode) {
     if (frame_buffer_build(mode, &first_frame_buffer)) return 1;
@@ -107,6 +153,7 @@ void draw_instructions_menu_screen() {
 
 void draw_game_screen(){
     draw_staticSprite_xpm(game_screen,0,0);
+    draw_map();
     switch(fireboy.type){
         case 0: 
             draw_movingSprite_xpm(boy);
