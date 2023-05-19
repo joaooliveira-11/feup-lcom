@@ -16,16 +16,3 @@
 #define arrowdown 0x50
 #define arrowright 0x4d
 
-typedef enum {
-    ON,
-    OFF,
-} Status;
-
-typedef enum {
-    START_MENU,
-    //GAMEWIN_MENU,
-    //GAMEOVER_MENU,
-    INSTRUCTIONS_MENU,
-    PLAYING,
-} GameState;
-

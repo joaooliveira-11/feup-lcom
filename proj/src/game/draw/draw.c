@@ -5,29 +5,8 @@ uint8_t *second_frame_buffer;
 uint32_t frame_buffer_size;
 
 extern vbe_mode_info_t vbe_mode_info;
-extern Status gamestatus;
-extern GameState gamestate;
 extern mouse_t mouse_packet;
-extern sprite_t *mouse;
-extern sprite_t *play_button;
-extern sprite_t *quit_button;
-extern sprite_t *inst_button;
-extern sprite_t *multi_button;
-extern sprite_t *initial_screen_background;
-extern sprite_t *instructions_screen;
-extern sprite_t *back_button;
-extern sprite_t *game_screen;
-extern sprite_t *boy;
-extern sprite_t *girl;
-extern sprite_t *boy_left;
-extern sprite_t *boy_right;
-extern sprite_t *girl_left;
-extern sprite_t *girl_right;
-extern sprite_t *wall;
-
-extern watergirl_t watergirl;
-extern fireboy_t fireboy;
-
+extern struct gamecontext context;
 
 int draw_map(){
     char buf[1024];
@@ -38,11 +17,9 @@ int draw_map(){
         return 1;
     }
 
-    char *filename = "/home/lcom/labs/g1/proj/src/game/draw/map.txt";
-
     FILE *ptr;
     char ch = '\0';
-    ptr = fopen(filename, "r");
+    ptr = fopen("/home/lcom/labs/g1/proj/src/game/draw/map.txt", "r");
 
 
     
@@ -60,7 +37,7 @@ int draw_map(){
              x++;
         }
         if(ch == '-'){
-            draw_staticSprite_xpm(wall, x*20, y*20);
+            draw_staticSprite_xpm(context.wall, x*20, y*20);
             x++;
         }if(ch == '|'){
                 y++;
@@ -114,15 +91,15 @@ int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y) {
 }
 
 void draw_frame() {
-    if(quit_button->is_pressed){
-        gamestatus = OFF;
+    if(context.quit_button->is_pressed){
+        context.gamestatus = OFF;
         return;
     }
-    if(play_button->is_pressed) gamestate = PLAYING;
-    if(inst_button->is_pressed) gamestate = INSTRUCTIONS_MENU;
-    if(back_button->is_pressed) gamestate = START_MENU;
+    if(context.play_button->is_pressed) context.gamestate = PLAYING;
+    if(context.inst_button->is_pressed) context.gamestate = INSTRUCTIONS_MENU;
+    if(context.back_button->is_pressed) context.gamestate = START_MENU;
 
-    switch (gamestate) {
+    switch (context.gamestate) {
         case START_MENU:
             draw_initial_menu_screen();
             break;
@@ -138,44 +115,44 @@ void draw_frame() {
 
 
 void draw_initial_menu_screen() {
-    draw_staticSprite_xpm(initial_screen_background, 0,0);
-    draw_staticSprite_xpm(play_button,35,235);
-    draw_staticSprite_xpm(quit_button,560,365);
-    draw_staticSprite_xpm(inst_button,35,365);
-    draw_staticSprite_xpm(multi_button,560,235);
+    draw_staticSprite_xpm(context.initial_screen_background, 0,0);
+    draw_staticSprite_xpm(context.play_button,35,235);
+    draw_staticSprite_xpm(context.quit_button,560,365);
+    draw_staticSprite_xpm(context.inst_button,35,365);
+    draw_staticSprite_xpm(context.multi_button,560,235);
 }
 
 void draw_instructions_menu_screen() {
-    draw_staticSprite_xpm(instructions_screen,0,0);
-    draw_staticSprite_xpm(back_button, 607,495);
+    draw_staticSprite_xpm(context.instructions_screen,0,0);
+    draw_staticSprite_xpm(context.back_button, 607,495);
 }
 
 
 void draw_game_screen(){
-    draw_staticSprite_xpm(game_screen,0,0);
+    draw_staticSprite_xpm(context.game_screen,0,0);
     draw_map();
-    switch(fireboy.type){
+    switch(context.fireboy.type){
         case 0: 
-            draw_movingSprite_xpm(boy);
+            draw_movingSprite_xpm(context.boy);
             break;
         case 1:
-            draw_movingSprite_xpm(boy_left);
+            draw_movingSprite_xpm(context.boy_left);
             break;
         case 2:
-            draw_movingSprite_xpm(boy_right);
+            draw_movingSprite_xpm(context.boy_right);
             break;
         default:
             break;
     }
-    switch(watergirl.type){
+    switch(context.watergirl.type){
         case 0: 
-            draw_movingSprite_xpm(girl);
+            draw_movingSprite_xpm(context.girl);
             break;
         case 1:
-            draw_movingSprite_xpm(girl_left);
+            draw_movingSprite_xpm(context.girl_left);
             break;
         case 2:
-            draw_movingSprite_xpm(girl_right);
+            draw_movingSprite_xpm(context.girl_right);
             break;
         default:
             break;
@@ -183,8 +160,8 @@ void draw_game_screen(){
 }
 
 void draw_newMouse_pos(){
-    set_sprite_xpos(mouse, mouse_packet.xpos);
-    set_sprite_ypos(mouse, mouse_packet.ypos);
-    draw_movingSprite_xpm(mouse);
+    set_sprite_xpos(context.mouse, mouse_packet.xpos);
+    set_sprite_ypos(context.mouse, mouse_packet.ypos);
+    draw_movingSprite_xpm(context.mouse);
 }
 
