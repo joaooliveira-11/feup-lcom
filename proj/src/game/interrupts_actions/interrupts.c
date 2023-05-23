@@ -2,19 +2,11 @@
 
 extern uint8_t scancode;
 extern uint8_t mouse_byte_index; 
-extern Status gamestatus;
-extern GameState gamestate;
+
 extern vbe_mode_info_t vbe_mode_info;
 extern mouse_t mouse_packet;
+extern struct gamecontext context;
 
-extern sprite_t *boy;
-extern sprite_t *girl;
-extern sprite_t *boy_left;
-extern sprite_t *boy_right;
-extern sprite_t *girl_left;
-extern sprite_t *girl_right;
-extern watergirl_t watergirl;
-extern fireboy_t fireboy;
 
 void handle_timer_interrupt(){
     update_buffers();
@@ -24,100 +16,100 @@ void handle_keyboard_interrupt(){
     (kbc_ih)();
     switch (scancode) {
         case QUIT:
-            gamestatus = OFF;
+            context.gamestatus = OFF;
             break;
         case GAME_SCREEN:
-            gamestate = PLAYING;
+            context.gamestate = PLAYING;
             break;
         case arrowup:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(fireboy.xpos, fireboy.xpos + boy->width, fireboy.ypos -5, fireboy.ypos -5) == 0){
-                    fireboy.ypos -= 5;
-                    fireboy.type = 0;
-                    set_sprite_xpos(boy, fireboy.xpos);
-                    set_sprite_ypos(boy, fireboy.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.fireboy.xpos, context.fireboy.xpos + context.boy->width, context.fireboy.ypos -5, context.fireboy.ypos -5) == 0){
+                    context.fireboy.ypos -= 5;
+                    context.fireboy.type = 0;
+                    set_sprite_xpos(context.boy, context.fireboy.xpos);
+                    set_sprite_ypos(context.boy, context.fireboy.ypos);
                 }
                 break;
             }
         }
         case arrowdown:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(fireboy.xpos, fireboy.xpos + boy->width, fireboy.ypos +5, fireboy.ypos +5 + boy->height) == 0){
-                    fireboy.ypos += 5;
-                    fireboy.type = 0;
-                    set_sprite_xpos(boy, fireboy.xpos);
-                    set_sprite_ypos(boy, fireboy.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.fireboy.xpos, context.fireboy.xpos + context.boy->width, context.fireboy.ypos +5, context.fireboy.ypos +5 + context.boy->height) == 0){
+                    context.fireboy.ypos += 5;
+                    context.fireboy.type = 0;
+                    set_sprite_xpos(context.boy, context.fireboy.xpos);
+                    set_sprite_ypos(context.boy, context.fireboy.ypos);
                 }
                 break;
             }
         }
         case arrowright:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(fireboy.xpos +5 , fireboy.xpos + 5 + boy_right->width, fireboy.ypos, fireboy.ypos) == 0){
-                    fireboy.xpos += 5;
-                    if(fireboy.type == 0) fireboy.ypos += 10;
-                    fireboy.type = 2;
-                    set_sprite_xpos(boy_right, fireboy.xpos);
-                    set_sprite_ypos(boy_right, fireboy.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.fireboy.xpos +5 , context.fireboy.xpos + 5 + context.boy_right->width, context.fireboy.ypos, context.fireboy.ypos) == 0){
+                    context.fireboy.xpos += 5;
+                    if(context.fireboy.type == 0) context.fireboy.ypos += 10;
+                    context.fireboy.type = 2;
+                    set_sprite_xpos(context.boy_right, context.fireboy.xpos);
+                    set_sprite_ypos(context.boy_right, context.fireboy.ypos);
                 }
                 break;
             }
         }
         case arrowleft:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(fireboy.xpos -5 , fireboy.xpos -5, fireboy.ypos, fireboy.ypos) == 0){
-                    if(fireboy.type == 0) fireboy.ypos += 10;
-                    fireboy.type = 1;
-                    fireboy.xpos -= 5;
-                    set_sprite_xpos(boy_left, fireboy.xpos);
-                    set_sprite_ypos(boy_left, fireboy.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.fireboy.xpos -5 , context.fireboy.xpos -5, context.fireboy.ypos, context.fireboy.ypos) == 0){
+                    if(context.fireboy.type == 0) context.fireboy.ypos += 10;
+                    context.fireboy.type = 1;
+                    context.fireboy.xpos -= 5;
+                    set_sprite_xpos(context.boy_left, context.fireboy.xpos);
+                    set_sprite_ypos(context.boy_left, context.fireboy.ypos);
                 }
                 break;
             }
         }
 
         case W:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(watergirl.xpos, watergirl.xpos + girl->width, watergirl.ypos -5, watergirl.ypos -5) == 0){
-                    watergirl.ypos -= 5;
-                    watergirl.type = 0;
-                    set_sprite_xpos(girl, watergirl.xpos);
-                    set_sprite_ypos(girl, watergirl.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.watergirl.xpos, context.watergirl.xpos + context.girl->width, context.watergirl.ypos -5, context.watergirl.ypos -5) == 0){
+                    context.watergirl.ypos -= 5;
+                    context.watergirl.type = 0;
+                    set_sprite_xpos(context.girl, context.watergirl.xpos);
+                    set_sprite_ypos(context.girl, context.watergirl.ypos);
                 }
                 break;
             }
         }
         case S:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(watergirl.xpos, watergirl.xpos + girl->width, watergirl.ypos +5, watergirl.ypos +5 + girl->height) == 0){
-                    watergirl.ypos += 5;
-                    watergirl.type = 0;
-                    set_sprite_xpos(girl, watergirl.xpos);
-                    set_sprite_ypos(girl, watergirl.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.watergirl.xpos, context.watergirl.xpos + context.girl->width, context.watergirl.ypos +5, context.watergirl.ypos +5 + context.girl->height) == 0){
+                    context.watergirl.ypos += 5;
+                    context.watergirl.type = 0;
+                    set_sprite_xpos(context.girl, context.watergirl.xpos);
+                    set_sprite_ypos(context.girl, context.watergirl.ypos);
                 }
                 break;
             }
         }
         case D:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(watergirl.xpos +5 , watergirl.xpos + 5 + girl_right->width, watergirl.ypos, watergirl.ypos) == 0){
-                    watergirl.xpos += 5;
-                    if(watergirl.type == 0) watergirl.ypos += 6;
-                    watergirl.type = 2;
-                    set_sprite_xpos(girl_right, watergirl.xpos);
-                    set_sprite_ypos(girl_right, watergirl.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.watergirl.xpos +5 , context.watergirl.xpos + 5 + context.girl_right->width, context.watergirl.ypos, context.watergirl.ypos) == 0){
+                    context.watergirl.xpos += 5;
+                    if(context.watergirl.type == 0) context.watergirl.ypos += 6;
+                    context.watergirl.type = 2;
+                    set_sprite_xpos(context.girl_right, context.watergirl.xpos);
+                    set_sprite_ypos(context.girl_right, context.watergirl.ypos);
                 }
                 break;
             }
         }
         case A:{
-            if(gamestate == PLAYING){
-                if(check_arena_border(watergirl.xpos -5 , watergirl.xpos -5, watergirl.ypos, watergirl.ypos) == 0){
-                    if(watergirl.type == 0) watergirl.ypos += 6;
-                    watergirl.type = 1;
-                    watergirl.xpos -= 5;
-                    set_sprite_xpos(girl_left, watergirl.xpos);
-                    set_sprite_ypos(girl_left, watergirl.ypos);
+            if(context.gamestate == PLAYING){
+                if(check_arena_border(context.watergirl.xpos -5 , context.watergirl.xpos -5, context.watergirl.ypos, context.watergirl.ypos) == 0){
+                    if(context.watergirl.type == 0) context.watergirl.ypos += 6;
+                    context.watergirl.type = 1;
+                    context.watergirl.xpos -= 5;
+                    set_sprite_xpos(context.girl_left, context.watergirl.xpos);
+                    set_sprite_ypos(context.girl_left, context.watergirl.ypos);
                 }
                 break;
             }

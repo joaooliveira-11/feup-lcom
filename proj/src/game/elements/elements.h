@@ -8,6 +8,7 @@
 #include "../../devices/graphics/graphics.h"
 #include "sprite/sprite.h"
 #include "../draw/draw.h"
+#include "../context.h"
 
 #include "xpms/game_elements/mouse.xpm"
 #include "xpms/screens/background_final.xpm"

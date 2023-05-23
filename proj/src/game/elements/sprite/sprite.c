@@ -1,5 +1,8 @@
 #include "sprite.h"
 
+
+extern struct gamecontext context;
+
 sprite_t *(sprite_build)(xpm_map_t xpm){
 
     sprite_t *sprite = (sprite_t *) malloc(sizeof(sprite_t));

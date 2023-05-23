@@ -5,8 +5,8 @@
 #include <lcom/lcf.h>
 #include "../../devices/graphics/graphics.h"
 #include "../../devices/mouse/mouse.h"
-#include "../elements/sprite/sprite.h"
 #include "../interrupts_actions/interrupts.h"
+#include "../context.h"
 
 int allocate_double_buffer(uint16_t mode);
 void update_buffers();
