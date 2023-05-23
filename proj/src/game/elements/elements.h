@@ -27,6 +27,8 @@
 #include "xpms/players/running_right_girl.xpm"
 #include "xpms/game_elements/wall.xpm"
 
+
+int read_map();
 void allocate_screens();
 void allocate_game_elements();
 void allocate_players();

@@ -8,47 +8,6 @@ extern vbe_mode_info_t vbe_mode_info;
 extern mouse_t mouse_packet;
 extern struct gamecontext context;
 
-int draw_map(){
-    char buf[1024];
-    if (getcwd(buf, sizeof(buf)) != NULL) {
-        printf("Current working directory: %s\n", buf);
-    } else {
-        perror("getcwd() error");
-        return 1;
-    }
-
-    FILE *ptr;
-    char ch = '\0';
-    ptr = fopen("/home/lcom/labs/g1/proj/src/game/draw/map.txt", "r");
-
-
-    
-    if(ptr == NULL){
-        printf("file cant open");
-        return 1;
-    }
-    int x = 0;
-    int y = 0;
-
-
-    while(ch != EOF){
-        ch = fgetc(ptr);
-        if(ch == 'x'){
-             x++;
-        }
-        if(ch == '-'){
-            draw_staticSprite_xpm(context.wall, x*20, y*20);
-            x++;
-        }if(ch == '|'){
-                y++;
-                x = 0;
-            }
-        }
-
-    fclose(ptr);
-
-    return 0;
-}
 
 int allocate_double_buffer(uint16_t mode) {
     if (frame_buffer_build(mode, &first_frame_buffer)) return 1;
@@ -88,6 +47,14 @@ int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y) {
       }
     }
     return 0; 
+}
+
+void draw_map(){
+    for (int i = 0; i < context.numWalls; i++) {
+        uint16_t xPos = context.positions[i].x;
+        uint16_t yPos = context.positions[i].y;
+        draw_staticSprite_xpm(context.wall, xPos, yPos);
+    }
 }
 
 void draw_frame() {

@@ -31,9 +31,14 @@ struct fireboy {
   uint16_t type; // 0 - up/down , 1 - left, 2 right
 };
 
+struct position {
+  uint16_t x,y;
+};
+
 typedef struct sprite sprite_t;
 typedef struct watergirl watergirl_t;
 typedef struct fireboy fireboy_t;
+typedef struct position position_t;
 
 struct gamecontext {
     //vbe_mode_info_t vbe_mode_info;
@@ -59,6 +64,9 @@ struct gamecontext {
     watergirl_t watergirl;
     fireboy_t fireboy;
     char *map1;
+
+    int numWalls;
+    position_t* positions;
 };
 
 struct gamecontext context;

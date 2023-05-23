@@ -3,6 +3,55 @@
 
 extern struct gamecontext context;
 
+int read_map(){
+    char buf[1024];
+    if (getcwd(buf, sizeof(buf)) != NULL) {
+        printf("Current working directory: %s\n", buf);
+    } else {
+        perror("getcwd() error");
+        return 1;
+    }
+
+    FILE *ptr;
+    char ch = '\0';
+    ptr = fopen("/home/lcom/labs/g1/proj/src/game/draw/map.txt", "r");
+
+    if(ptr == NULL){
+        printf("file cant open");
+        return 1;
+    }
+
+    context.positions = malloc(1200 * sizeof(position_t));
+    if (context.positions == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    int x = 0;
+    int y = 0;
+    int numPositions = 0; 
+
+    while(ch != EOF){
+        ch = fgetc(ptr);
+        if(ch == 'x'){
+             x++;
+        }
+        if(ch == '-'){
+            context.positions[numPositions].x = x * 20;
+            context.positions[numPositions].y = y * 20;
+            numPositions++;
+            x++;
+        }if(ch == '|'){
+                y++;
+                x = 0;
+            }
+    }
+
+    context.numWalls = numPositions;
+    fclose(ptr);
+
+    return 0;
+}
 
 void allocate_screens(){
     context.initial_screen_background = sprite_build((xpm_map_t) background_final_xpm);
@@ -13,6 +62,7 @@ void allocate_screens(){
 
 void allocate_game_elements(){
     context.mouse = sprite_build((xpm_map_t) mouse_xpm);
+    if(read_map() != 0) printf("error while reading game map\n");
 }
 
 void allocate_players(){
@@ -57,6 +107,7 @@ void delete_screens(){
 
 void delete_game_elements(){
     sprite_delete(context.mouse);
+    free(context.positions);
 }
 
 void delete_players(){
