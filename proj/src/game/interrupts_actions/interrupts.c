@@ -25,6 +25,8 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                if(check_FBmoveUP() == 0){
                     move_FBup();
+                    check_gameWin();
+
                }
             }
             break;
@@ -33,6 +35,8 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                 if(check_FBmoveDOWN() == 0){
                     move_FBdown();
+                    check_gameWin();
+
                }
             }
             break;
@@ -41,6 +45,8 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                 if(check_FBmoveRIGHT() == 0){
                     move_FBright();
+                    check_gameWin();
+
                }
             }
             break;
@@ -49,6 +55,8 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                 if(check_FBmoveLEFT() == 0){
                     move_FBleft();
+                    check_gameWin();
+
                }
             }
             break;
@@ -58,6 +66,7 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                 if(check_WGmoveUP() == 0){
                     move_WGup();
+                    check_gameWin();
                }
             }
             break;
@@ -66,6 +75,7 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                 if(check_WGmoveDOWN() == 0){
                     move_WGdown();
+                    check_gameWin();
                }
             }
             break;
@@ -74,6 +84,7 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                 if(check_WGmoveRIGHT() == 0){
                     move_WGright();
+                    check_gameWin();
                }
             }
             break;
@@ -82,6 +93,7 @@ void handle_keyboard_interrupt(){
             if(context.gamestate == PLAYING){
                 if(check_WGmoveLEFT() == 0){
                     move_WGleft();
+                    check_gameWin();
                }
             }
             break;

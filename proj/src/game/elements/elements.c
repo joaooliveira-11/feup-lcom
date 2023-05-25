@@ -57,7 +57,9 @@ void allocate_screens(){
     context.initial_screen_background = sprite_build((xpm_map_t) background_final_xpm);
     context.instructions_screen = sprite_build((xpm_map_t) instructions_xpm);
     context.game_screen = sprite_build((xpm_map_t) game_backgroung_xpm);
+    context.win_screen = sprite_build((xpm_map_t) wonMenu_xpm);
     context.wall = sprite_build((xpm_map_t) wall_xpm);
+    context.doors = sprite_build((xpm_map_t) doors_xpm);
 }
 
 void allocate_game_elements(){
@@ -81,7 +83,6 @@ void allocate_buttons(){
     context.inst_button = sprite_build((xpm_map_t) button_inst_xpm);
     context.multi_button = sprite_build((xpm_map_t) button_multi_xpm);
     context.back_button = sprite_build((xpm_map_t) button_back_xpm);
-
 }
 
 void delete_screens(){
@@ -89,6 +90,8 @@ void delete_screens(){
     sprite_delete(context.instructions_screen);
     sprite_delete(context.game_screen);
     sprite_delete(context.wall);
+    sprite_delete(context.doors);
+    sprite_delete(context.win_screen);
 }
 
 void delete_game_elements(){

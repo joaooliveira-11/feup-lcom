@@ -76,6 +76,9 @@ void draw_frame() {
         case INSTRUCTIONS_MENU:
             draw_instructions_menu_screen();
             break;
+        case GAMEWIN_MENU:
+            draw_win_screen();
+            break;
     }
     draw_newMouse_pos();
 }
@@ -91,13 +94,19 @@ void draw_initial_menu_screen() {
 
 void draw_instructions_menu_screen() {
     draw_staticSprite_xpm(context.instructions_screen,0,0);
-    draw_staticSprite_xpm(context.back_button, 607,495);
+    draw_staticSprite_xpm(context.back_button, 607, 495);
+}
+
+void draw_win_screen() {
+    draw_staticSprite_xpm(context.win_screen,0,0);
+    draw_staticSprite_xpm(context.back_button, 320, 320);
 }
 
 
 void draw_game_screen(){
     draw_staticSprite_xpm(context.game_screen,0,0);
     draw_map();
+    draw_staticSprite_xpm(context.doors, 663, 27);
     draw_movingSprite_xpm(context.boy);
     draw_movingSprite_xpm(context.girl);
 }

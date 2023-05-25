@@ -8,7 +8,7 @@ typedef enum {
 
 typedef enum {
     START_MENU,
-    //GAMEWIN_MENU,
+    GAMEWIN_MENU,
     //GAMEOVER_MENU,
     INSTRUCTIONS_MENU,
     PLAYING,
@@ -19,16 +19,6 @@ struct sprite {
   uint16_t height, width;
   uint32_t *colors_array;
   uint8_t is_pressed; 
-};
-
-struct watergirl {
-  uint16_t xpos, ypos;
-  uint16_t type; // 0 - up/down , 1 - left, 2 right
-};
-
-struct fireboy {
-  uint16_t xpos, ypos;
-  uint16_t type; // 0 - up/down , 1 - left, 2 right
 };
 
 struct position {
@@ -42,7 +32,7 @@ typedef struct position position_t;
 
 struct gamecontext {
     Status gamestatus;
-    GameState gamestate ;
+    GameState gamestate;
     sprite_t *mouse;
     sprite_t *play_button;
     sprite_t *quit_button;
@@ -52,9 +42,11 @@ struct gamecontext {
     sprite_t *instructions_screen;
     sprite_t *back_button;
     sprite_t *game_screen;
+    sprite_t *win_screen;
     sprite_t *boy;
     sprite_t *girl;
     sprite_t *wall;
+    sprite_t *doors;
     char *map1;
 
     int numWalls;

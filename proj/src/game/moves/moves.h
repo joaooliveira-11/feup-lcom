@@ -27,5 +27,7 @@ void move_WGleft();
 
 int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType);
 void check_mouse_clicks();
+void check_gameWin();
+
 
 #endif

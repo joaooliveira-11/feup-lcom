@@ -26,6 +26,8 @@
 #include "xpms/players/running_left_girl.xpm"
 #include "xpms/players/running_right_girl.xpm"
 #include "xpms/game_elements/wall.xpm"
+#include "xpms/game_elements/doors.xpm"
+#include "xpms/screens/wonMenu.xpm"
 
 
 int read_map();

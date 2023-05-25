@@ -75,7 +75,7 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
     uint16_t targetWidth = (PlayerType == 0) ? context.boy->width : context.girl->width;
     uint16_t targetHeight = (PlayerType == 0) ? context.boy->height : context.girl->height;
 
-    if (targetXPOS <= 25 || targetYPOS <= 32 || targetXPOS + targetWidth >= 775 || targetYPOS + targetHeight >= 570) return 1;
+    if (targetXPOS <= 25 || targetYPOS <= 15 || targetXPOS + targetWidth >= 775 || targetYPOS + targetHeight >= 580) return 1;
 
 
     for (int i = 0; i < context.numWalls; i++) {
@@ -85,11 +85,8 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
         uint16_t wallWidth = 21;
         uint16_t wallHeight = 20;
 
-        if (targetXPOS + targetWidth >= wallX &&
-            targetXPOS <= wallX + wallWidth &&
-            targetYPOS + targetHeight >= wallY &&
-            targetYPOS <= wallY + wallHeight)
-        {
+        if (targetXPOS + targetWidth >= wallX && targetXPOS <= wallX + wallWidth &&
+            targetYPOS + targetHeight >= wallY && targetYPOS <= wallY + wallHeight) {
             return 1;
         }
     }
@@ -114,9 +111,15 @@ void check_mouse_clicks() {
             }
             case INSTRUCTIONS_MENU:
                 if(mouse_packet.xpos >= 607 && mouse_packet.xpos <= 777 && mouse_packet.ypos >= 495 && mouse_packet.ypos <= 577){
-                  context.back_button->is_pressed = 1;
+                    context.back_button->is_pressed = 1;
                 }  
-                break;   
+                break;  
+
+            case GAMEWIN_MENU:
+                if(mouse_packet.xpos >= 320 && mouse_packet.xpos <= 490 && mouse_packet.ypos >= 320 && mouse_packet.ypos <= 402){
+                    context.back_button->is_pressed = 1;
+                } 
+                 break;
             default:
                 break;
         }
@@ -128,4 +131,13 @@ void check_mouse_clicks() {
         context.inst_button->is_pressed = 0;
         context.back_button->is_pressed = 0;
     }
+}
+
+void check_gameWin() {
+    if ((context.boy->xpos + context.boy->width >= 663 && context.boy->xpos +  context.boy->width <= 707  &&
+            context.boy->ypos + context.boy->height  >= 27 && context.boy->ypos + context.boy->height <= 80) && 
+        (context.girl->xpos + context.girl->width >= 715 && context.girl->xpos +  context.girl->width <= 760  &&
+            context.girl->ypos + context.girl->height  >= 27 && context.girl->ypos + context.girl->height <= 80)){
+                context.gamestate = GAMEWIN_MENU;
+            } 
 }
