@@ -4,13 +4,100 @@ extern mouse_t mouse_packet;
 
 extern struct gamecontext context;
 
-int check_arena_border(uint16_t sprite_initialX, uint16_t sprite_finalX, uint16_t sprite_initialY, uint16_t sprite_finalY){
-    if(sprite_initialY <= 32 || sprite_finalY <= 32 || sprite_initialY >= 570 || sprite_finalY >= 570) return 1;
-    if(sprite_initialX <= 25 || sprite_finalX <= 25 || sprite_initialX >= 775 || sprite_finalX >= 775) return 1;
+void move_FBup() {
+    set_sprite_ypos(context.boy, context.boy->ypos - 5);
+}
+
+void move_FBdown() {
+    set_sprite_ypos(context.boy, context.boy->ypos + 5);
+}
+
+void move_FBright() {
+    set_sprite_xpos(context.boy, context.boy->xpos + 5);
+}
+
+void move_FBleft() {
+    set_sprite_xpos(context.boy, context.boy->xpos - 5);
+}
+
+void move_WGup() {
+    set_sprite_ypos(context.girl, context.girl->ypos - 5);
+}
+
+void move_WGdown() {
+    set_sprite_ypos(context.girl, context.girl->ypos + 5);
+}
+
+void move_WGright() {
+     set_sprite_xpos(context.girl, context.girl->xpos + 5);
+}
+
+void move_WGleft() {
+    set_sprite_xpos(context.girl, context.girl->xpos - 5);
+}
+
+
+
+int check_FBmoveUP() {
+    return check_colisions(context.boy->xpos, context.boy->ypos - 5,0);
+}
+
+int check_FBmoveDOWN() {
+    return check_colisions(context.boy->xpos, context.boy->ypos + 5,0);
+}
+
+int check_FBmoveRIGHT() {
+    return check_colisions(context.boy->xpos + 5, context.boy->ypos,0);
+}
+
+int check_FBmoveLEFT() {
+    return check_colisions(context.boy->xpos - 5, context.boy->ypos,0);
+}
+
+int check_WGmoveUP() {
+    return check_colisions(context.girl->xpos, context.girl->ypos - 5,1);
+}
+
+int check_WGmoveDOWN() {
+    return check_colisions(context.girl->xpos, context.girl->ypos + 5,1);
+}
+
+int check_WGmoveRIGHT() {
+     return check_colisions(context.girl->xpos + 5, context.girl->ypos,1);
+}
+
+int check_WGmoveLEFT() {
+    return check_colisions(context.girl->xpos - 5, context.girl->ypos,1);
+}
+
+
+int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
+    uint16_t targetWidth = (PlayerType == 0) ? context.boy->width : context.girl->width;
+    uint16_t targetHeight = (PlayerType == 0) ? context.boy->height : context.girl->height;
+
+    if (targetXPOS <= 25 || targetYPOS <= 32 || targetXPOS + targetWidth >= 775 || targetYPOS + targetHeight >= 570) return 1;
+
+
+    for (int i = 0; i < context.numWalls; i++) {
+        uint16_t wallX = context.walls[i].x;
+        uint16_t wallY = context.walls[i].y;
+
+        uint16_t wallWidth = 21;
+        uint16_t wallHeight = 20;
+
+        if (targetXPOS + targetWidth >= wallX &&
+            targetXPOS <= wallX + wallWidth &&
+            targetYPOS + targetHeight >= wallY &&
+            targetYPOS <= wallY + wallHeight)
+        {
+            return 1;
+        }
+    }
+
     return 0;
 }
 
-void check_mouse_clicks(){
+void check_mouse_clicks() {
     if(mouse_packet.lb){
         switch(context.gamestate) {
             case START_MENU:{
@@ -42,4 +129,3 @@ void check_mouse_clicks(){
         context.back_button->is_pressed = 0;
     }
 }
-

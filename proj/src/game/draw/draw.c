@@ -51,8 +51,8 @@ int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y) {
 
 void draw_map(){
     for (int i = 0; i < context.numWalls; i++) {
-        uint16_t xPos = context.positions[i].x;
-        uint16_t yPos = context.positions[i].y;
+        uint16_t xPos = context.walls[i].x;
+        uint16_t yPos = context.walls[i].y;
         draw_staticSprite_xpm(context.wall, xPos, yPos);
     }
 }
@@ -98,32 +98,8 @@ void draw_instructions_menu_screen() {
 void draw_game_screen(){
     draw_staticSprite_xpm(context.game_screen,0,0);
     draw_map();
-    switch(context.fireboy.type){
-        case 0: 
-            draw_movingSprite_xpm(context.boy);
-            break;
-        case 1:
-            draw_movingSprite_xpm(context.boy_left);
-            break;
-        case 2:
-            draw_movingSprite_xpm(context.boy_right);
-            break;
-        default:
-            break;
-    }
-    switch(context.watergirl.type){
-        case 0: 
-            draw_movingSprite_xpm(context.girl);
-            break;
-        case 1:
-            draw_movingSprite_xpm(context.girl_left);
-            break;
-        case 2:
-            draw_movingSprite_xpm(context.girl_right);
-            break;
-        default:
-            break;
-    }
+    draw_movingSprite_xpm(context.boy);
+    draw_movingSprite_xpm(context.girl);
 }
 
 void draw_newMouse_pos(){
@@ -131,4 +107,3 @@ void draw_newMouse_pos(){
     set_sprite_ypos(context.mouse, mouse_packet.ypos);
     draw_movingSprite_xpm(context.mouse);
 }
-

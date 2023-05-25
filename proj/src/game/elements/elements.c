@@ -21,8 +21,8 @@ int read_map(){
         return 1;
     }
 
-    context.positions = malloc(1200 * sizeof(position_t));
-    if (context.positions == NULL) {
+    context.walls = malloc(1200 * sizeof(position_t));
+    if (context.walls == NULL) {
         printf("Memory allocation failed.\n");
         return 1;
     }
@@ -33,12 +33,12 @@ int read_map(){
 
     while(ch != EOF){
         ch = fgetc(ptr);
-        if(ch == 'x'){
+        if(ch == '-'){
              x++;
         }
-        if(ch == '-'){
-            context.positions[numPositions].x = x * 20;
-            context.positions[numPositions].y = y * 20;
+        if(ch == 'x'){
+            context.walls[numPositions].x = x * 20;
+            context.walls[numPositions].y = y * 20;
             numPositions++;
             x++;
         }if(ch == '|'){
@@ -69,24 +69,10 @@ void allocate_players(){
     context.boy = sprite_build((xpm_map_t) fireboy_xpm);
     context.girl = sprite_build((xpm_map_t) watergirl_xpm);
 
-    context.boy_left = sprite_build((xpm_map_t) running_left_boy_xpm);
-    context.boy_right = sprite_build((xpm_map_t) running_right_boy_xpm);
-    context.girl_left = sprite_build((xpm_map_t) running_left_girl_xpm);
-    context.girl_right = sprite_build((xpm_map_t) running_right_girl_xpm); 
-
-    context.fireboy.xpos = 35;
-    context.fireboy.ypos = 235;
-    context.fireboy.type = 0;
-
-    context.watergirl.xpos = 35;
-    context.watergirl.ypos = 365;
-    context.watergirl.type = 0;
-
-    set_sprite_xpos(context.boy, context.fireboy.xpos);
-    set_sprite_ypos(context.boy, context.fireboy.ypos);
-    set_sprite_xpos(context.girl, context.watergirl.xpos);
-    set_sprite_ypos(context.girl, context.watergirl.ypos);
-
+    set_sprite_xpos(context.boy, 25);
+    set_sprite_ypos(context.boy, 515);
+    set_sprite_xpos(context.girl, 25);
+    set_sprite_ypos(context.girl, 515);
 }
 
 void allocate_buttons(){
@@ -107,15 +93,11 @@ void delete_screens(){
 
 void delete_game_elements(){
     sprite_delete(context.mouse);
-    free(context.positions);
+    free(context.walls);
 }
 
 void delete_players(){
     sprite_delete(context.boy);
-    sprite_delete(context.boy_left);
-    sprite_delete(context.boy_right);
-    sprite_delete(context.girl_left);
-    sprite_delete(context.girl_right);
     sprite_delete(context.girl);
 }
 

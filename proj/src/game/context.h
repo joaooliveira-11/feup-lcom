@@ -41,10 +41,8 @@ typedef struct fireboy fireboy_t;
 typedef struct position position_t;
 
 struct gamecontext {
-    //vbe_mode_info_t vbe_mode_info;
     Status gamestatus;
     GameState gamestate ;
-    //mouse_t mouse_packet;
     sprite_t *mouse;
     sprite_t *play_button;
     sprite_t *quit_button;
@@ -56,17 +54,11 @@ struct gamecontext {
     sprite_t *game_screen;
     sprite_t *boy;
     sprite_t *girl;
-    sprite_t *boy_left;
-    sprite_t *boy_right;
-    sprite_t *girl_left;
-    sprite_t *girl_right;
     sprite_t *wall;
-    watergirl_t watergirl;
-    fireboy_t fireboy;
     char *map1;
 
     int numWalls;
-    position_t* positions;
+    position_t* walls;
 };
 
 struct gamecontext context;
