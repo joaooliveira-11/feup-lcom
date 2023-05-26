@@ -1,9 +1,4 @@
-#define GAMEFPS 60 
-#define GAME_MODE 0x115
 #define TRANSPARENT 0xFFFFFE
-
-//#define INITIAL_MENU  31
-#define GAME_SCREEN   34
 #define QUIT          16
 
 #define W 0x11

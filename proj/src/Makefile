@@ -13,11 +13,12 @@ PROG=proj
 .PATH: ${.CURDIR}/game/elements
 .PATH: ${.CURDIR}/game/elements/sprite
 .PATH: ${.CURDIR}/game/interrupts_actions
+.PATH: ${.CURDIR}/game/allocations_manager
 .PATH: ${.CURDIR}/game/moves
 
 
 # Ficheiros ".c" a compilar. Têm de estar contidos nas pastas indicadas no passo anterior.
-SRCS = 	proj.c timer.c utils.c graphics.c keyboard.c mouse.c sprite.c moves.c interrupts.c KBC.c elements.c draw.c game.c
+SRCS = 	proj.c timer.c utils.c graphics.c keyboard.c mouse.c sprite.c moves.c interrupts.c KBC.c elements.c draw.c game.c allocations_manager.c
 
 # Flags de compilação
 CFLAGS += -pedantic -D_LCOM_OPTIMIZED_ -O2

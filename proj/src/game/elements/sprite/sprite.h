@@ -7,6 +7,9 @@
 
 
 sprite_t *(sprite_build)(xpm_map_t xpm);
+
+int sprite_build1(sprite_t* sprite, xpm_map_t xpm_);
+
 void (sprite_delete)(sprite_t * sprite);
 
 

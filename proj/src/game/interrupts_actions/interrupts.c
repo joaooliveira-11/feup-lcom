@@ -18,15 +18,11 @@ void handle_keyboard_interrupt(){
         case QUIT:
             context.gamestatus = OFF;
             break;
-        case GAME_SCREEN:
-            context.gamestate = PLAYING;
-            break;
         case arrowup:{
             if(context.gamestate == PLAYING){
                if(check_FBmoveUP() == 0){
                     move_FBup();
                     check_gameWin();
-
                }
             }
             break;
@@ -36,7 +32,6 @@ void handle_keyboard_interrupt(){
                 if(check_FBmoveDOWN() == 0){
                     move_FBdown();
                     check_gameWin();
-
                }
             }
             break;
@@ -46,7 +41,6 @@ void handle_keyboard_interrupt(){
                 if(check_FBmoveRIGHT() == 0){
                     move_FBright();
                     check_gameWin();
-
                }
             }
             break;
@@ -56,7 +50,6 @@ void handle_keyboard_interrupt(){
                 if(check_FBmoveLEFT() == 0){
                     move_FBleft();
                     check_gameWin();
-
                }
             }
             break;
@@ -98,7 +91,6 @@ void handle_keyboard_interrupt(){
             }
             break;
         }
-
         default:
             break;
     }
