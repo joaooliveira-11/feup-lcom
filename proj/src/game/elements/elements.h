@@ -25,8 +25,25 @@
 #include "xpms/game_elements/doors.xpm"
 #include "xpms/screens/wonMenu.xpm"
 
+static char **xpms_array[] = {
+    mouse_xpm,
+    button_play_xpm,
+    button_quit_xpm,
+    button_inst_xpm,
+    button_multi_xpm,
+    button_back_xpm,
+    background_final_xpm,
+    instructions_xpm,
+    game_backgroung_xpm,
+    wonMenu_xpm,
+    fireboy_xpm,
+    watergirl_xpm,
+    wall_xpm,
+    doors_xpm
+};
 
 int read_map();
+void allocate_mouse();
 void allocate_screens();
 void allocate_game_elements();
 void allocate_players();

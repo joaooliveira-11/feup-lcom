@@ -12,7 +12,7 @@ void handle_timer_interrupt(){
     update_buffers();
 }
 
-void move_action(GameState state, int (check_move)(), void (move_player)() ){
+void move_action(GameState state, int (*check_move)(), void (*move_player)() ){
     if(context.gamestate == state){
         if(check_move() == 0){
             move_player();

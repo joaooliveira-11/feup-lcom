@@ -53,36 +53,37 @@ int read_map(){
     return 0;
 }
 
-void allocate_screens(){
-    sprite_build1(&context.sprites[SPRITE_INITscreen_Idx], (xpm_map_t) background_final_xpm);
-    sprite_build1(&context.sprites[SPRITE_INSTscreen_Idx], (xpm_map_t) instructions_xpm);
-    sprite_build1(&context.sprites[SPRITE_GAMEscreen_Idx], (xpm_map_t) game_backgroung_xpm);
-    sprite_build1(&context.sprites[SPRITE_WINscree_Idx], (xpm_map_t) wonMenu_xpm);
+void allocate_mouse(){
+    sprite_build1(&context.sprites[0], (xpm_map_t) xpms_array[0]);
 }
 
-void allocate_game_elements(){
-    sprite_build1(&context.sprites[SPRITE_MOUSE_Idx], (xpm_map_t) mouse_xpm);
-    sprite_build1(&context.sprites[SPRITE_WALL_Idx], (xpm_map_t) wall_xpm);
-    sprite_build1(&context.sprites[SPRITE_DOOR_Idx], (xpm_map_t) doors_xpm);
-    if(read_map() != 0) printf("error while reading game map\n");
+void allocate_buttons(){
+    for (int i = 1; i < 6; i++){
+        sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
+    }
+}
+
+void allocate_screens(){
+    for (int i = 6; i < 10; i++){
+        sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
+    }
 }
 
 void allocate_players(){
-    sprite_build1(&context.sprites[SPRITE_BOY_Idx], (xpm_map_t) fireboy_xpm);
-    sprite_build1(&context.sprites[SPRITE_GIRL_Idx], (xpm_map_t) watergirl_xpm);
-
+    for (int i = 10; i < 12; i++){
+        sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
+    }
     set_sprite_xpos(&context.sprites[SPRITE_BOY_Idx], 25);
     set_sprite_ypos(&context.sprites[SPRITE_BOY_Idx], 515);
     set_sprite_xpos(&context.sprites[SPRITE_GIRL_Idx], 25);
     set_sprite_ypos(&context.sprites[SPRITE_GIRL_Idx], 515);
 }
 
-void allocate_buttons(){
-    sprite_build1(&context.sprites[SPRITE_PLAYbtn_Idx], (xpm_map_t) button_play_xpm);
-    sprite_build1(&context.sprites[SPRITE_QUITbtn_Idx], (xpm_map_t) button_quit_xpm);
-    sprite_build1(&context.sprites[SPRITE_INSTbtn_Idx], (xpm_map_t) button_inst_xpm);
-    sprite_build1(&context.sprites[SPRITE_MULTIbtn_Idx], (xpm_map_t) button_multi_xpm);
-    sprite_build1(&context.sprites[SPRITE_BACKbtn_Idx], (xpm_map_t) button_back_xpm);
+void allocate_game_elements(){
+    for (int i = 12; i < 14; i++){
+        sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
+    }
+    if(read_map() != 0) printf("error while reading game map\n");
 }
 
 void delete_screens(){

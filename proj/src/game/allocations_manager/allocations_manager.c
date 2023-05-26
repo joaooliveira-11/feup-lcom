@@ -5,6 +5,7 @@ extern struct gamecontext context;
 
 
 void manage_game_allocations(){
+    allocate_mouse();
     allocate_screens();
     allocate_game_elements();
     allocate_players();
