@@ -12,6 +12,15 @@ void handle_timer_interrupt(){
     update_buffers();
 }
 
+void move_action(GameState state, int (check_move)(), void (move_player)() ){
+    if(context.gamestate == state){
+        if(check_move() == 0){
+            move_player();
+            check_gameWin();
+        }
+    }
+}
+
 void handle_keyboard_interrupt(){
     (kbc_ih)();
     switch (scancode) {
@@ -19,76 +28,35 @@ void handle_keyboard_interrupt(){
             context.gamestatus = OFF;
             break;
         case arrowup:{
-            if(context.gamestate == PLAYING){
-               if(check_FBmoveUP() == 0){
-                    move_FBup();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_FBmoveUP, move_FBup);
             break;
         }
         case arrowdown:{
-            if(context.gamestate == PLAYING){
-                if(check_FBmoveDOWN() == 0){
-                    move_FBdown();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_FBmoveDOWN, move_FBdown);
             break;
         }
         case arrowright:{
-            if(context.gamestate == PLAYING){
-                if(check_FBmoveRIGHT() == 0){
-                    move_FBright();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_FBmoveRIGHT,move_FBright);
             break;
         }
         case arrowleft:{
-            if(context.gamestate == PLAYING){
-                if(check_FBmoveLEFT() == 0){
-                    move_FBleft();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_FBmoveLEFT, move_FBleft);
             break;
         }
-
         case W:{
-            if(context.gamestate == PLAYING){
-                if(check_WGmoveUP() == 0){
-                    move_WGup();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_WGmoveUP, move_WGup);
             break;
         }
         case S:{
-            if(context.gamestate == PLAYING){
-                if(check_WGmoveDOWN() == 0){
-                    move_WGdown();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_WGmoveDOWN, move_WGdown);
             break;
         }
         case D:{
-            if(context.gamestate == PLAYING){
-                if(check_WGmoveRIGHT() == 0){
-                    move_WGright();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_WGmoveRIGHT, move_WGright);
             break;
         }
         case A:{
-            if(context.gamestate == PLAYING){
-                if(check_WGmoveLEFT() == 0){
-                    move_WGleft();
-                    check_gameWin();
-               }
-            }
+            move_action(PLAYING, check_WGmoveLEFT, move_WGleft);
             break;
         }
         default:
@@ -96,7 +64,6 @@ void handle_keyboard_interrupt(){
     }
     draw_frame();
 }
-
 
 void handle_mouse_interrupt(){
     mouse_ih();
