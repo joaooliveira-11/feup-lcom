@@ -31,18 +31,6 @@ void handle_timer_interrupt(){
                 context.map_countdown++;
             }
         } 
-
-       // display_action();
-    }
-}
-
-void display_action (){
-    if(context.count_seconds / 60 == 1){
-    context.display_time = 1;           
-    context.count_seconds = 0;
-    } else {
-        context.display_time = 0;
-        context.count_seconds++;
     }
 }
 

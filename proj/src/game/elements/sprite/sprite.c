@@ -28,5 +28,4 @@ uint16_t get_sprite_ypos(sprite_t *sprite){
 
 void (sprite_delete)(sprite_t * sprite){
     free(sprite->xpm);
-    free(sprite);
 }

@@ -23,4 +23,13 @@ void draw_lose_screen();
 void draw_map();
 void draw_timer_countDown();
 
+typedef void (*funct_t)();
+static funct_t funcs[] = {
+    draw_initial_menu_screen,
+    draw_win_screen,
+    draw_lose_screen,
+    draw_instructions_menu_screen,
+    draw_game_screen,
+};
+
 #endif

@@ -17,6 +17,7 @@ void manage_game_deletes(){
     delete_game_elements();
     delete_players();
     delete_buttons();
+    delete_numbers();
 }
 
 void manage_start_states(){
@@ -30,16 +31,13 @@ void manage_start_states(){
 
     context.map_countdown = 0;
     context.startMapCountdown = 1;
-    context.count_seconds = 0;
-    context.display_time = 0;
-
+    
     reset_barrier();
 
     set_sprite_xpos(&context.sprites[SPRITE_BOY_Idx], 25);
     set_sprite_ypos(&context.sprites[SPRITE_BOY_Idx], 515);
     set_sprite_xpos(&context.sprites[SPRITE_GIRL_Idx], 25);
     set_sprite_ypos(&context.sprites[SPRITE_GIRL_Idx], 515);
-
 
 } 
 

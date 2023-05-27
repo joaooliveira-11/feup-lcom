@@ -76,7 +76,7 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
     uint16_t targetWidth = (PlayerType == 0) ? context.sprites[SPRITE_BOY_Idx].width : context.sprites[SPRITE_GIRL_Idx].width;
     uint16_t targetHeight = (PlayerType == 0) ? context.sprites[SPRITE_BOY_Idx].height : context.sprites[SPRITE_GIRL_Idx].height;
 
-    if (targetXPOS <= 20 || targetYPOS <= 15 || targetXPOS + targetWidth >= 775 || targetYPOS + targetHeight >= 580) return 1;
+    if (targetXPOS <= 20 || targetYPOS <= 15 || targetXPOS + targetWidth >= 780 || targetYPOS + targetHeight >= 580) return 1;
 
 
     for (int i = 0; i < context.numWalls; i++) {
@@ -236,40 +236,20 @@ void mouse_GAMEWIN(){
         context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 1;
     }
 }
+void reset_mouseClicks(){
+    context.sprites[SPRITE_PLAYbtn_Idx].is_pressed = 0;
+    context.sprites[SPRITE_QUITbtn_Idx].is_pressed = 0;
+    context.sprites[SPRITE_INSTbtn_Idx].is_pressed = 0;
+    context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 0;
+    context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 0;
+}
 
 void check_mouse_clicks() {
     if(mouse_packet.lb){ 
-        switch(context.gamestate) {
-            case START_MENU:{
-                mouse_MENU();
-                break;
-            }
-            case INSTRUCTIONS_MENU:{
-                mouse_INSTRUCTIONS();
-                break;  
-            }
-            case PLAYING:{
-                mouse_PLAYING();
-                break;
-            }
-            case GAMEWIN_MENU:{
-                mouse_GAMEWIN();
-                break;
-            }
-            case GAMEOVER_MENU:{
-                mouse_GAMEOVER();
-                break;
-            }
-            default:
-                break;
-        }   
+        funcs1[context.gamestate](); 
     }
-    else{
-        context.sprites[SPRITE_PLAYbtn_Idx].is_pressed = 0;
-        context.sprites[SPRITE_QUITbtn_Idx].is_pressed = 0;
-        context.sprites[SPRITE_INSTbtn_Idx].is_pressed = 0;
-        context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 0;
-        context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 0;
+    else {
+        reset_mouseClicks();
     }
 }
 

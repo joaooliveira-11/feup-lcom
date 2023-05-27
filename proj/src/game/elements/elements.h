@@ -42,7 +42,6 @@
 #include "xpms/numbers/number8.xpm"
 #include "xpms/numbers/number9.xpm"
 
-
 static char **xpms_array[] = {
     mouse_xpm,
     button_play_xpm,
@@ -93,5 +92,6 @@ void delete_screens();
 void delete_game_elements();
 void delete_players();
 void delete_buttons();
+void delete_numbers();
 
 #endif

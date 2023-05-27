@@ -25,7 +25,7 @@ int read_map(){
     context.levers = malloc(10 * sizeof(lever_t));
     context.levers_match = malloc(10 * sizeof(lever_t));
     context.barriers = malloc(10 * sizeof(barrier_t));
-    context.traps = malloc(10 * sizeof(barrier_t));
+    context.traps = malloc(10 * sizeof(trap_t));
 
     if (context.walls == NULL) {
         printf("Memory allocation failed.\n");
@@ -184,35 +184,38 @@ void allocate_numbers(){
 }
 
 void delete_screens(){
-    /*
-    sprite_delete(context.initial_screen_background);
-    sprite_delete(context.instructions_screen);
-    sprite_delete(context.game_screen);
-    sprite_delete(context.wall);
-    sprite_delete(context.doors);
-    sprite_delete(context.win_screen);
-    */
+    for (int i = 7; i < 12; i++){
+        sprite_delete(&context.sprites[i]);
+    }
 }
 
 void delete_game_elements(){
-    //sprite_delete(context.mouse);
+    sprite_delete(&context.sprites[0]);
+    for (int i = 14; i < 21; i++){
+        sprite_delete(&context.sprites[i]);
+    }
+
     free(context.walls);
+    free(context.levers);
+    free(context.levers_match);
+    free(context.barriers);
     free(context.traps);
 }
 
 void delete_players(){
-    /*
-    sprite_delete(context.boy);
-    sprite_delete(context.girl);
-    */
+   for (int i = 12; i < 14; i++){
+        sprite_delete(&context.sprites[i]);
+    }
 }
 
 void delete_buttons(){
-    /*
-    sprite_delete(context.play_button);
-    sprite_delete(context.quit_button);
-    sprite_delete(context.inst_button);
-    sprite_delete(context.multi_button);
-    sprite_delete(context.back_button);
-    */
+    for (int i = 1; i < 7; i++){
+        sprite_delete(&context.sprites[i]);
+    }
+}
+
+void delete_numbers(){
+    for (int i = 0; i < 10; i++){
+        sprite_delete(&context.numbers[i]);
+    }
 }

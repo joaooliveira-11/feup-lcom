@@ -23,8 +23,6 @@ int(start_game)(){
     if(mouse_write(0xEA) != 0) return 1;
     if(mouse_write(0xF4) != 0) return 1;
 
-
-    // Ativar Interrupções
     if(timer_subscribe_int(&TIMER_MASK) != 0) return 1;
     if(keyboard_subscribe_int(&KEYBOARD_MASK) != 0) return 1;
     if(mouse_subscribe_int(&MOUSE_MASK) != 0) return 1;

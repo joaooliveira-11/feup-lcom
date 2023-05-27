@@ -16,7 +16,5 @@ void handle_timer_interrupt();
 void handle_keyboard_interrupt();
 void handle_mouse_interrupt();
 void move_action(GameState state, int (*check_move)(), void (*move_player)());
-void display_action();
-
 
 #endif

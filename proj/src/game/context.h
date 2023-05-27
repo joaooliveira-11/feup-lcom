@@ -97,8 +97,6 @@ struct gamecontext {
 
     int map_countdown;
     int startMapCountdown;
-    int display_time;
-    int count_seconds;
 
     Status gamestatus;
     GameState gamestate;

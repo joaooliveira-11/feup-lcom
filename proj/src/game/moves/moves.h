@@ -37,5 +37,16 @@ void check_gameWin();
 int check_nearBY(lever_t lever, int PlayerType);
 
 void reset_barrier();
+void reset_mouseClicks();
+
+
+typedef void (*funct1_t)();
+static funct1_t funcs1[] = {
+    mouse_MENU,
+    mouse_GAMEWIN,
+    mouse_GAMEOVER,
+    mouse_INSTRUCTIONS,
+    mouse_PLAYING,
+};
 
 #endif
