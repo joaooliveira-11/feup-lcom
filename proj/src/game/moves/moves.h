@@ -28,10 +28,13 @@ void move_WGleft();
 void mouse_MENU();
 void mouse_INSTRUCTIONS();
 void mouse_PLAYING();
+void mouse_GAMEOVER();
+void mouse_GAMEWIN();
 
 int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType);
 void check_mouse_clicks();
 void check_gameWin();
+int check_nearBY(lever_t lever, int PlayerType);
 
 void reset_barrier();
 

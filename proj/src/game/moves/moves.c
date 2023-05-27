@@ -1,4 +1,5 @@
 #include "moves.h"
+#include <math.h>
 
 extern mouse_t mouse_packet;
 
@@ -140,6 +141,28 @@ void reset_barrier(){
     }
 }
 
+int check_nearBY(lever_t lever, int PlayerType) {
+    uint16_t targetWidth = (PlayerType == 0) ? context.sprites[SPRITE_BOY_Idx].width : context.sprites[SPRITE_GIRL_Idx].width;
+    uint16_t targetHeight = (PlayerType == 0) ? context.sprites[SPRITE_BOY_Idx].height : context.sprites[SPRITE_GIRL_Idx].height;
+
+    int indx = (PlayerType == 0) ? SPRITE_BOY_Idx : SPRITE_GIRL_Idx;
+
+    int playerCenterX = context.sprites[indx].xpos + targetWidth / 2;
+    int playerCenterY = context.sprites[indx].ypos + targetHeight / 2;
+
+    int leverCenterX = lever.x + context.sprites[SPRITE_LEVERleft_Idx].width / 2;
+    int leverCenterY = lever.y + context.sprites[SPRITE_LEVERleft_Idx].height / 2;
+
+
+    int distance = sqrt(pow(playerCenterX - leverCenterX, 2) + pow(playerCenterY - leverCenterY, 2));
+
+    if (distance <= 40) {
+        return 0; 
+    }
+
+    return 1;
+}
+
 void mouse_MENU(){
     if(mouse_packet.xpos >= context.sprites[SPRITE_PLAYbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_PLAYbtn_Idx].xpos + context.sprites[SPRITE_PLAYbtn_Idx].width
      && mouse_packet.ypos >= context.sprites[SPRITE_PLAYbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_PLAYbtn_Idx].ypos + context.sprites[SPRITE_PLAYbtn_Idx].height
@@ -175,10 +198,12 @@ void mouse_PLAYING(){
             mouse_packet.xpos >= context.levers[i].x && mouse_packet.xpos <= context.levers[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
             mouse_packet.ypos >= context.levers[i].y && mouse_packet.ypos <= context.levers[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
         ){
-           context.levers[i].is_pressed = 1; 
-            context.levers_match[i].is_pressed = 0; 
-            context.barriers[i].is_open = 1;
-            context.startLeversCountdown = 1;
+            if(check_nearBY(context.levers[i], 0) == 0 || check_nearBY(context.levers[i], 1) == 0){
+                context.levers[i].is_pressed = 1; 
+                context.levers_match[i].is_pressed = 0; 
+                context.barriers[i].is_open = 1;
+                context.startLeversCountdown = 1;
+            }
         }
         if(
             !(context.levers_match[i].is_pressed) &&
@@ -186,15 +211,25 @@ void mouse_PLAYING(){
             mouse_packet.ypos >= context.levers_match[i].y && mouse_packet.ypos <= context.levers_match[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
         )
         {
-            context.levers[i].is_pressed = 0;
-            context.levers_match[i].is_pressed = 1; 
-            context.barriers[i].is_open = 1; 
-            context.startLeversCountdown = 1;
+            if(check_nearBY(context.levers_match[i], 0) == 0 || check_nearBY(context.levers_match[i], 1) == 0){
+                context.levers[i].is_pressed = 0;
+                context.levers_match[i].is_pressed = 1; 
+                context.barriers[i].is_open = 1; 
+                context.startLeversCountdown = 1;
+            }
         }    
     }
 }
 
 void mouse_GAMEOVER(){
+    if(mouse_packet.xpos >= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos + context.sprites[SPRITE_MAINMENUbtn_Idx].width
+     && mouse_packet.ypos >= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos + context.sprites[SPRITE_MAINMENUbtn_Idx].height
+     ){
+        context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 1;
+    }
+}
+
+void mouse_GAMEWIN(){
     if(mouse_packet.xpos >= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos + context.sprites[SPRITE_MAINMENUbtn_Idx].width
      && mouse_packet.ypos >= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos + context.sprites[SPRITE_MAINMENUbtn_Idx].height
      ){
@@ -218,19 +253,16 @@ void check_mouse_clicks() {
                 break;
             }
             case GAMEWIN_MENU:{
-                if(mouse_packet.xpos >= 320 && mouse_packet.xpos <= 490 && mouse_packet.ypos >= 320 && mouse_packet.ypos <= 402){
-                    context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 1;
-                } 
-                 break;
+                mouse_GAMEWIN();
+                break;
             }
             case GAMEOVER_MENU:{
                 mouse_GAMEOVER();
-                 break;
+                break;
             }
             default:
                 break;
-        }
-        
+        }   
     }
     else{
         context.sprites[SPRITE_PLAYbtn_Idx].is_pressed = 0;

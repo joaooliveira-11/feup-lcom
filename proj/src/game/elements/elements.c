@@ -167,10 +167,6 @@ void allocate_players(){
     for (int i = 12; i < 14; i++){
         sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
     }
-    set_sprite_xpos(&context.sprites[SPRITE_BOY_Idx], 25);
-    set_sprite_ypos(&context.sprites[SPRITE_BOY_Idx], 515);
-    set_sprite_xpos(&context.sprites[SPRITE_GIRL_Idx], 25);
-    set_sprite_ypos(&context.sprites[SPRITE_GIRL_Idx], 515);
 }
 
 void allocate_game_elements(){

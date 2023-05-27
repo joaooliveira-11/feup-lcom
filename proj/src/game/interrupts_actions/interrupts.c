@@ -20,7 +20,7 @@ void handle_timer_interrupt(){
             else context.levers_countdown++;
         }
         if(context.startMapCountdown){
-            if(context.map_countdown / 60 == 120){
+            if(context.map_countdown / 60 == 180){
                 context.gamestate = GAMEOVER_MENU;
                 draw_frame();
             }
