@@ -27,6 +27,8 @@
 #include "xpms/game_elements/barrier.xpm"
 #include "xpms/game_elements/lever_left.xpm"
 #include "xpms/game_elements/lever_right.xpm"
+#include "xpms/game_elements/fire.xpm"
+#include "xpms/game_elements/ice.xpm"
 
 static char **xpms_array[] = {
     mouse_xpm,
@@ -45,7 +47,9 @@ static char **xpms_array[] = {
     doors_xpm,
     barrier_xpm,
     lever_left_xpm,
-    lever_right_xpm
+    lever_right_xpm,
+    fire_xpm,
+    ice_xpm
 };
 
 int read_map();

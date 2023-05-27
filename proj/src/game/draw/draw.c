@@ -73,6 +73,16 @@ void draw_map(){
             draw_staticSprite_xpm(&context.sprites[SPRITE_LEVERleft_Idx], context.levers_match[i].x, context.levers_match[i].y);
         }
     }
+
+    for(int i = 0; i < context.numTraps; i++){
+        uint16_t xPos = context.traps[i].x;
+        uint16_t yPos = context.traps[i].y;
+        if(context.traps[i].type == 1){
+            draw_staticSprite_xpm(&context.sprites[SPRITE_FIRE_Idx], xPos, yPos);
+        }if(context.traps[i].type == 0){
+            draw_staticSprite_xpm(&context.sprites[SPRITE_ICE_Idx], xPos, yPos);
+        }
+    }
 }
 
 void draw_frame() {

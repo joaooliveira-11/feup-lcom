@@ -25,6 +25,7 @@ int read_map(){
     context.levers = malloc(10 * sizeof(lever_t));
     context.levers_match = malloc(10 * sizeof(lever_t));
     context.barriers = malloc(10 * sizeof(barrier_t));
+    context.traps = malloc(10 * sizeof(barrier_t));
 
     if (context.walls == NULL) {
         printf("Memory allocation failed.\n");
@@ -45,10 +46,15 @@ int read_map(){
         printf("Memory allocation failed.\n");
         return 1;
     }
+    if (context.traps == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
 
     int x = 0;
     int y = 0;
-    int numPositions = 0; 
+    int numPositions = 0;
+    int numTraps = 0; 
 
     while(ch != EOF){
         ch = fgetc(ptr);
@@ -118,9 +124,24 @@ int read_map(){
             context.levers_match[2].is_pressed = 0;
             x++;
         }
+        if(ch == 'f'){
+            context.traps[numTraps].x = x * 20;
+            context.traps[numTraps].y = y * 20;
+            context.traps[numTraps].type = 1;
+            x+=2;
+            numTraps++;
+        }
+        if(ch == 'i'){
+            context.traps[numTraps].x = x * 20;
+            context.traps[numTraps].y = y * 20;
+            context.traps[numTraps].type = 0;
+            x+=2;
+            numTraps++;
+        }
     }
 
     context.numWalls = numPositions;
+    context.numTraps = numTraps;
     fclose(ptr);
 
     return 0;
@@ -153,7 +174,7 @@ void allocate_players(){
 }
 
 void allocate_game_elements(){
-    for (int i = 12; i < 17; i++){
+    for (int i = 12; i < 19; i++){
         sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
     }
     if(read_map() != 0) printf("error while reading game map\n");
@@ -173,6 +194,7 @@ void delete_screens(){
 void delete_game_elements(){
     //sprite_delete(context.mouse);
     free(context.walls);
+    free(context.traps);
 }
 
 void delete_players(){

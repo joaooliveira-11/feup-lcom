@@ -91,6 +91,20 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
         }
     }
 
+    for (int i = 0; i < 2; i++) {
+        uint16_t trapX = context.traps[i].x;
+        uint16_t trapY = context.traps[i].y;
+        uint8_t trapType = context.traps[i].type;
+
+        uint16_t trapWidth = 40;
+        uint16_t trapHeight = 10;
+
+        if (targetXPOS + targetWidth >= trapX && targetXPOS <= trapX + trapWidth &&
+            targetYPOS + targetHeight >= trapY && targetYPOS <= trapY + trapHeight && (PlayerType == trapType)) {
+            return 1;
+        }
+    }
+
     for (int i = 0; i < 3; i++) {
         if (targetXPOS + targetWidth >= context.levers[i].x && targetXPOS <= context.levers[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
             targetYPOS + targetHeight >= context.levers[i].y && targetYPOS <= context.levers[i].y + context.sprites[SPRITE_LEVERleft_Idx].height) {
