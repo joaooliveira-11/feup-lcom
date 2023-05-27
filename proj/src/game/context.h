@@ -1,7 +1,7 @@
 #ifndef CONTEXT_H_
 #define CONTEXT_H_
 
-#define MAX_SPRITES 20
+#define MAX_SPRITES 21
 
 #define SPRITE_MOUSE_Idx 0
 #define SPRITE_PLAYbtn_Idx 1
