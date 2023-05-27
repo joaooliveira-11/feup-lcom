@@ -75,7 +75,7 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
     uint16_t targetWidth = (PlayerType == 0) ? context.sprites[SPRITE_BOY_Idx].width : context.sprites[SPRITE_GIRL_Idx].width;
     uint16_t targetHeight = (PlayerType == 0) ? context.sprites[SPRITE_BOY_Idx].height : context.sprites[SPRITE_GIRL_Idx].height;
 
-    if (targetXPOS <= 25 || targetYPOS <= 15 || targetXPOS + targetWidth >= 775 || targetYPOS + targetHeight >= 580) return 1;
+    if (targetXPOS <= 20 || targetYPOS <= 15 || targetXPOS + targetWidth >= 775 || targetYPOS + targetHeight >= 580) return 1;
 
 
     for (int i = 0; i < context.numWalls; i++) {
@@ -91,35 +91,116 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
         }
     }
 
+    for (int i = 0; i < 3; i++) {
+        if (targetXPOS + targetWidth >= context.levers[i].x && targetXPOS <= context.levers[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
+            targetYPOS + targetHeight >= context.levers[i].y && targetYPOS <= context.levers[i].y + context.sprites[SPRITE_LEVERleft_Idx].height) {
+            return 1;
+        }
+        if (targetXPOS + targetWidth >= context.levers_match[i].x && targetXPOS <= context.levers_match[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
+            targetYPOS + targetHeight >= context.levers_match[i].y && targetYPOS <= context.levers_match[i].y + context.sprites[SPRITE_LEVERleft_Idx].height) {
+            return 1;
+        }
+    }
+
+    for(int i = 0; i < 3; i++){
+        if(!(context.barriers[i].is_open)){
+            if (targetXPOS + targetWidth >= context.barriers[i].x && targetXPOS <= context.barriers[i].x + context.sprites[SPRITE_BARRIER_Idx].width &&
+                targetYPOS + targetHeight >= context.barriers[i].y && targetYPOS <= context.barriers[i].y + context.sprites[SPRITE_BARRIER_Idx].height) {
+                return 1;
+            }
+        }
+    }
+    
     return 0;
 }
 
+void reset_barrier(){
+    for (int i = 0; i < 3; i++) {
+        if(context.barriers[i].is_open){
+            context.barriers[i].is_open = 0;
+            context.levers[i].is_pressed = 0;
+            context.levers_match[i].is_pressed = 0;
+            context.start_countdown = 0;
+            context.levers_countdown = 0;
+        }
+    }
+}
+
+void mouse_MENU(){
+    if(mouse_packet.xpos >= context.sprites[SPRITE_PLAYbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_PLAYbtn_Idx].xpos + context.sprites[SPRITE_PLAYbtn_Idx].width
+     && mouse_packet.ypos >= context.sprites[SPRITE_PLAYbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_PLAYbtn_Idx].ypos + context.sprites[SPRITE_PLAYbtn_Idx].height
+     ){
+        context.sprites[SPRITE_PLAYbtn_Idx].is_pressed = 1;
+    }
+
+    else if(mouse_packet.xpos >= context.sprites[SPRITE_INSTbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_INSTbtn_Idx].xpos + context.sprites[SPRITE_INSTbtn_Idx].width
+     && mouse_packet.ypos >= context.sprites[SPRITE_INSTbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_INSTbtn_Idx].ypos + context.sprites[SPRITE_INSTbtn_Idx].height
+     ){
+        context.sprites[SPRITE_INSTbtn_Idx].is_pressed = 1;
+    }
+
+    else if(mouse_packet.xpos >= context.sprites[SPRITE_QUITbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_QUITbtn_Idx].xpos + context.sprites[SPRITE_QUITbtn_Idx].width
+     && mouse_packet.ypos >= context.sprites[SPRITE_QUITbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_QUITbtn_Idx].ypos + context.sprites[SPRITE_QUITbtn_Idx].height
+     ){
+        context.sprites[SPRITE_QUITbtn_Idx].is_pressed = 1;
+    }
+}
+
+void mouse_INSTRUCTIONS(){
+    if(mouse_packet.xpos >= context.sprites[SPRITE_BACKbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_BACKbtn_Idx].xpos + context.sprites[SPRITE_BACKbtn_Idx].width
+     && mouse_packet.ypos >= context.sprites[SPRITE_BACKbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_BACKbtn_Idx].ypos + context.sprites[SPRITE_BACKbtn_Idx].height
+     ){
+        context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 1;
+    }
+}
+
+void mouse_PLAYING(){
+    for(int i = 0; i < 3; i++){
+        if(
+            !(context.levers[i].is_pressed) &&
+            mouse_packet.xpos >= context.levers[i].x && mouse_packet.xpos <= context.levers[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
+            mouse_packet.ypos >= context.levers[i].y && mouse_packet.ypos <= context.levers[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
+        ){
+            context.levers[i].is_pressed = 1; 
+            context.levers_match[i].is_pressed = 0; 
+            context.barriers[i].is_open = 1;
+            context.start_countdown = 1;
+        }
+        if(
+            !(context.levers_match[i].is_pressed) &&
+            mouse_packet.xpos >= context.levers_match[i].x && mouse_packet.xpos <= context.levers_match[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
+            mouse_packet.ypos >= context.levers_match[i].y && mouse_packet.ypos <= context.levers_match[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
+        )
+        {
+            context.levers[i].is_pressed = 0;
+            context.levers_match[i].is_pressed = 1; 
+            context.barriers[i].is_open = 1; 
+            context.start_countdown = 1;
+        }    
+    }
+}
+
 void check_mouse_clicks() {
-    if(mouse_packet.lb){
+    if(mouse_packet.lb){ 
         switch(context.gamestate) {
             case START_MENU:{
-                if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 235 && mouse_packet.ypos <= 332){
-                    context.sprites[SPRITE_PLAYbtn_Idx].is_pressed = 1;
-                }
-                if(mouse_packet.xpos >= 35 && mouse_packet.xpos <= 235 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
-                    context.sprites[SPRITE_INSTbtn_Idx].is_pressed = 1;
-                }
-                if(mouse_packet.xpos >= 560 && mouse_packet.xpos <= 760 && mouse_packet.ypos >= 365 && mouse_packet.ypos <= 462){
-                    context.sprites[SPRITE_QUITbtn_Idx].is_pressed = 1;
-                }
+                mouse_MENU();
                 break;
             }
-            case INSTRUCTIONS_MENU:
-                if(mouse_packet.xpos >= 607 && mouse_packet.xpos <= 777 && mouse_packet.ypos >= 495 && mouse_packet.ypos <= 577){
-                    context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 1;
-                }  
+            case INSTRUCTIONS_MENU:{
+                mouse_INSTRUCTIONS();
                 break;  
-
-            case GAMEWIN_MENU:
+            }
+            case PLAYING:{
+                mouse_PLAYING();
+                break;
+            }
+            case GAMEWIN_MENU:{
                 if(mouse_packet.xpos >= 320 && mouse_packet.xpos <= 490 && mouse_packet.ypos >= 320 && mouse_packet.ypos <= 402){
                     context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 1;
                 } 
                  break;
+            }
             default:
                 break;
         }

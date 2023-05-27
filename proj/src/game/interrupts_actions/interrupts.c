@@ -10,6 +10,13 @@ extern struct gamecontext context;
 
 void handle_timer_interrupt(){
     update_buffers();
+    if(context.start_countdown){
+        if(context.levers_countdown / 60 == 3){
+            reset_barrier();
+            draw_frame();
+        }
+        else context.levers_countdown++;
+    }
 }
 
 void move_action(GameState state, int (*check_move)(), void (*move_player)() ){

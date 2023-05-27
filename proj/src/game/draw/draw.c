@@ -55,6 +55,24 @@ void draw_map(){
         uint16_t yPos = context.walls[i].y;
         draw_staticSprite_xpm(&context.sprites[SPRITE_WALL_Idx], xPos, yPos);
     }
+
+    for(int i = 0; i < 3; i++){
+        if(context.barriers[i].is_open && (context.levers[i].is_pressed || context.levers_match[i].is_pressed)){
+            if(context.levers[i].is_pressed){
+                draw_staticSprite_xpm(&context.sprites[SPRITE_LEVERright_Idx], context.levers[i].x, context.levers[i].y);
+                draw_staticSprite_xpm(&context.sprites[SPRITE_LEVERleft_Idx], context.levers_match[i].x, context.levers_match[i].y);
+            }
+            else if(context.levers_match[i].is_pressed){
+                draw_staticSprite_xpm(&context.sprites[SPRITE_LEVERleft_Idx], context.levers[i].x, context.levers[i].y);
+                draw_staticSprite_xpm(&context.sprites[SPRITE_LEVERright_Idx], context.levers_match[i].x, context.levers_match[i].y);
+            }
+        }
+        else{
+            draw_staticSprite_xpm(&context.sprites[SPRITE_BARRIER_Idx], context.barriers[i].x, context.barriers[i].y);
+            draw_staticSprite_xpm(&context.sprites[SPRITE_LEVERleft_Idx], context.levers[i].x, context.levers[i].y);
+            draw_staticSprite_xpm(&context.sprites[SPRITE_LEVERleft_Idx], context.levers_match[i].x, context.levers_match[i].y);
+        }
+    }
 }
 
 void draw_frame() {
@@ -90,18 +108,33 @@ void draw_initial_menu_screen() {
     draw_staticSprite_xpm(&context.sprites[SPRITE_QUITbtn_Idx],560,365);
     draw_staticSprite_xpm(&context.sprites[SPRITE_INSTbtn_Idx],35,365);
     draw_staticSprite_xpm(&context.sprites[SPRITE_MULTIbtn_Idx],560,235);
+
+    set_sprite_xpos(&context.sprites[SPRITE_PLAYbtn_Idx], 35);
+    set_sprite_ypos(&context.sprites[SPRITE_PLAYbtn_Idx], 235);
+
+    set_sprite_xpos(&context.sprites[SPRITE_QUITbtn_Idx], 560);
+    set_sprite_ypos(&context.sprites[SPRITE_QUITbtn_Idx], 365);
+
+    set_sprite_xpos(&context.sprites[SPRITE_INSTbtn_Idx], 35);
+    set_sprite_ypos(&context.sprites[SPRITE_INSTbtn_Idx], 365);
+
+    set_sprite_xpos(&context.sprites[SPRITE_MULTIbtn_Idx], 560);
+    set_sprite_ypos(&context.sprites[SPRITE_MULTIbtn_Idx], 235);
+
 }
 
 void draw_instructions_menu_screen() {
     draw_staticSprite_xpm(&context.sprites[SPRITE_INSTscreen_Idx],0,0);
     draw_staticSprite_xpm(&context.sprites[SPRITE_BACKbtn_Idx], 607, 495);
+
+    set_sprite_xpos(&context.sprites[SPRITE_BACKbtn_Idx], 607);
+    set_sprite_ypos(&context.sprites[SPRITE_BACKbtn_Idx], 495);
 }
 
 void draw_win_screen() {
     draw_staticSprite_xpm(&context.sprites[SPRITE_WINscree_Idx],0,0);
     draw_staticSprite_xpm(&context.sprites[SPRITE_BACKbtn_Idx], 320, 320);
 }
-
 
 void draw_game_screen(){
     draw_staticSprite_xpm(&context.sprites[SPRITE_GAMEscreen_Idx],0,0);

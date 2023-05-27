@@ -24,6 +24,9 @@
 #include "xpms/game_elements/wall.xpm"
 #include "xpms/game_elements/doors.xpm"
 #include "xpms/screens/wonMenu.xpm"
+#include "xpms/game_elements/barrier.xpm"
+#include "xpms/game_elements/lever_left.xpm"
+#include "xpms/game_elements/lever_right.xpm"
 
 static char **xpms_array[] = {
     mouse_xpm,
@@ -39,7 +42,10 @@ static char **xpms_array[] = {
     fireboy_xpm,
     watergirl_xpm,
     wall_xpm,
-    doors_xpm
+    doors_xpm,
+    barrier_xpm,
+    lever_left_xpm,
+    lever_right_xpm
 };
 
 int read_map();

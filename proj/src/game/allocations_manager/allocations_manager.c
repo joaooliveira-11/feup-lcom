@@ -3,7 +3,6 @@
 extern mouse_t mouse_packet;
 extern struct gamecontext context;
 
-
 void manage_game_allocations(){
     allocate_mouse();
     allocate_screens();
@@ -24,5 +23,7 @@ void manage_start_states(){
     mouse_packet.ypos = 50;
     context.gamestatus = ON;
     context.gamestate = START_MENU; 
+    context.levers_countdown = 0;
+    context.start_countdown = 0;
 }
 

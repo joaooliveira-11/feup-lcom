@@ -25,9 +25,14 @@ void move_WGdown();
 void move_WGright();
 void move_WGleft();
 
+void mouse_MENU();
+void mouse_INSTRUCTIONS();
+void mouse_PLAYING();
+
 int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType);
 void check_mouse_clicks();
 void check_gameWin();
 
+void reset_barrier();
 
 #endif
