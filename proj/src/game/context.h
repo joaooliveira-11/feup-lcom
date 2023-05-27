@@ -1,7 +1,8 @@
 #ifndef CONTEXT_H_
 #define CONTEXT_H_
 
-#define MAX_SPRITES 17
+
+#define MAX_SPRITES 18
 
 #define SPRITE_MOUSE_Idx 0
 #define SPRITE_PLAYbtn_Idx 1
@@ -13,13 +14,14 @@
 #define SPRITE_INSTscreen_Idx 7
 #define SPRITE_GAMEscreen_Idx 8
 #define SPRITE_WINscree_Idx 9
-#define SPRITE_BOY_Idx 10
-#define SPRITE_GIRL_Idx 11
-#define SPRITE_WALL_Idx 12
-#define SPRITE_DOOR_Idx 13
-#define SPRITE_BARRIER_Idx 14
-#define SPRITE_LEVERleft_Idx 15
-#define SPRITE_LEVERright_Idx 16
+#define SPRITE_LOSEscree_Idx 10
+#define SPRITE_BOY_Idx 11
+#define SPRITE_GIRL_Idx 12
+#define SPRITE_WALL_Idx 13
+#define SPRITE_DOOR_Idx 14
+#define SPRITE_BARRIER_Idx 15
+#define SPRITE_LEVERleft_Idx 16
+#define SPRITE_LEVERright_Idx 17
 
 typedef enum {
     ON,
@@ -29,7 +31,7 @@ typedef enum {
 typedef enum {
     START_MENU,
     GAMEWIN_MENU,
-    //GAMEOVER_MENU,
+    GAMEOVER_MENU,
     INSTRUCTIONS_MENU,
     PLAYING,
 } GameState;
@@ -67,7 +69,10 @@ struct gamecontext {
     int numWalls;
 
     int levers_countdown;
-    int start_countdown;
+    int startLeversCountdown;
+
+    int map_countdown;
+    int startMapCountdown;
 
     Status gamestatus;
     GameState gamestate;

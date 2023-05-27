@@ -97,6 +97,9 @@ void draw_frame() {
         case GAMEWIN_MENU:
             draw_win_screen();
             break;
+        case GAMEOVER_MENU:
+            draw_lose_screen();
+            break;     
     }
     draw_newMouse_pos();
 }
@@ -148,4 +151,9 @@ void draw_newMouse_pos(){
     set_sprite_xpos(&context.sprites[SPRITE_MOUSE_Idx], mouse_packet.xpos);
     set_sprite_ypos(&context.sprites[SPRITE_MOUSE_Idx], mouse_packet.ypos);
     draw_movingSprite_xpm(&context.sprites[SPRITE_MOUSE_Idx]);
+}
+
+void draw_lose_screen() {
+    draw_staticSprite_xpm(&context.sprites[SPRITE_LOSEscree_Idx],0,0);
+    draw_staticSprite_xpm(&context.sprites[SPRITE_BACKbtn_Idx], 320, 320);
 }

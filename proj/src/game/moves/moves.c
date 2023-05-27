@@ -120,7 +120,7 @@ void reset_barrier(){
             context.barriers[i].is_open = 0;
             context.levers[i].is_pressed = 0;
             context.levers_match[i].is_pressed = 0;
-            context.start_countdown = 0;
+            context.startLeversCountdown = 0;
             context.levers_countdown = 0;
         }
     }
@@ -161,10 +161,10 @@ void mouse_PLAYING(){
             mouse_packet.xpos >= context.levers[i].x && mouse_packet.xpos <= context.levers[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
             mouse_packet.ypos >= context.levers[i].y && mouse_packet.ypos <= context.levers[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
         ){
-            context.levers[i].is_pressed = 1; 
+           context.levers[i].is_pressed = 1; 
             context.levers_match[i].is_pressed = 0; 
             context.barriers[i].is_open = 1;
-            context.start_countdown = 1;
+            context.startLeversCountdown = 1;
         }
         if(
             !(context.levers_match[i].is_pressed) &&
@@ -175,7 +175,7 @@ void mouse_PLAYING(){
             context.levers[i].is_pressed = 0;
             context.levers_match[i].is_pressed = 1; 
             context.barriers[i].is_open = 1; 
-            context.start_countdown = 1;
+            context.startLeversCountdown = 1;
         }    
     }
 }
