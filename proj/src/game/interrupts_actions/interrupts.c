@@ -10,13 +10,24 @@ extern struct gamecontext context;
 
 void handle_timer_interrupt(){
     update_buffers();
-    if(context.start_countdown){
-        if(context.levers_countdown / 60 == 3){
-            reset_barrier();
-            draw_frame();
+
+    if(context.gamestate == PLAYING){
+        if(context.startLeversCountdown){
+            if(context.levers_countdown / 60 == 3){
+                reset_barrier();
+                draw_frame();
+            }
+            else context.levers_countdown++;
         }
-        else context.levers_countdown++;
-    }
+        if(context.startMapCountdown){
+            if(context.map_countdown / 60 == 120){
+                context.gamestate = GAMEOVER_MENU;
+                draw_frame();
+            }
+            else context.map_countdown++;
+        }
+}
+
 }
 
 void move_action(GameState state, int (*check_move)(), void (*move_player)() ){

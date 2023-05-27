@@ -158,13 +158,13 @@ void allocate_buttons(){
 }
 
 void allocate_screens(){
-    for (int i = 6; i < 10; i++){
+    for (int i = 6; i < 11; i++){
         sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
     }
 }
 
 void allocate_players(){
-    for (int i = 10; i < 12; i++){
+    for (int i = 11; i < 13; i++){
         sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
     }
     set_sprite_xpos(&context.sprites[SPRITE_BOY_Idx], 25);
@@ -174,7 +174,7 @@ void allocate_players(){
 }
 
 void allocate_game_elements(){
-    for (int i = 12; i < 19; i++){
+    for (int i = 13; i < 20; i++){
         sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
     }
     if(read_map() != 0) printf("error while reading game map\n");

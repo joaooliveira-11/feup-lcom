@@ -18,5 +18,6 @@ void draw_win_screen();
 void draw_newMouse_pos();
 int draw_movingSprite_xpm(sprite_t *sprite);
 int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y);
+void draw_lose_screen();
 
 #endif

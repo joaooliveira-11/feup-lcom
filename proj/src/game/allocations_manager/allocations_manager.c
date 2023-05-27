@@ -23,7 +23,11 @@ void manage_start_states(){
     mouse_packet.ypos = 50;
     context.gamestatus = ON;
     context.gamestate = START_MENU; 
+
     context.levers_countdown = 0;
-    context.start_countdown = 0;
-}
+    context.startLeversCountdown = 0;
+
+    context.map_countdown = 0;
+    context.startMapCountdown = 1;
+} 
 

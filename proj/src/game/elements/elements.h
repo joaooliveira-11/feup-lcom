@@ -29,6 +29,7 @@
 #include "xpms/game_elements/lever_right.xpm"
 #include "xpms/game_elements/fire.xpm"
 #include "xpms/game_elements/ice.xpm"
+#include "xpms/screens/lostMenu.xpm"
 
 static char **xpms_array[] = {
     mouse_xpm,
@@ -41,6 +42,7 @@ static char **xpms_array[] = {
     instructions_xpm,
     game_backgroung_xpm,
     wonMenu_xpm,
+    lostMenu_xpm,
     fireboy_xpm,
     watergirl_xpm,
     wall_xpm,
