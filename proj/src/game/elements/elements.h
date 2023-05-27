@@ -31,6 +31,17 @@
 #include "xpms/game_elements/ice.xpm"
 #include "xpms/screens/lostMenu.xpm"
 #include "xpms/buttons/button_mainMenu.xpm"
+#include "xpms/numbers/number0.xpm"
+#include "xpms/numbers/number1.xpm"
+#include "xpms/numbers/number2.xpm"
+#include "xpms/numbers/number3.xpm"
+#include "xpms/numbers/number4.xpm"
+#include "xpms/numbers/number5.xpm"
+#include "xpms/numbers/number6.xpm"
+#include "xpms/numbers/number7.xpm"
+#include "xpms/numbers/number8.xpm"
+#include "xpms/numbers/number9.xpm"
+
 
 static char **xpms_array[] = {
     mouse_xpm,
@@ -56,12 +67,27 @@ static char **xpms_array[] = {
     ice_xpm
 };
 
+
+static char **numbersArray[] = {
+    number0_xpm,
+    number1_xpm,
+    number2_xpm,
+    number3_xpm,
+    number4_xpm,
+    number5_xpm,
+    number6_xpm,
+    number7_xpm,
+    number8_xpm,
+    number9_xpm
+};
+
 int read_map();
 void allocate_mouse();
 void allocate_screens();
 void allocate_game_elements();
 void allocate_players();
 void allocate_buttons();
+void allocate_numbers();
 
 void delete_screens();
 void delete_game_elements();

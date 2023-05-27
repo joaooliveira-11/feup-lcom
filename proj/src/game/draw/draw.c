@@ -85,6 +85,18 @@ void draw_map(){
     }
 }
 
+void draw_timer_countDown(){
+    int timer = 180 - (context.map_countdown/60) ;
+
+    int units = timer % 10; 
+    int tens = (timer / 10) % 10; 
+    int hundreds = (timer / 100) % 10; 
+
+    draw_staticSprite_xpm(&context.numbers[hundreds], 371, 1);
+    draw_staticSprite_xpm(&context.numbers[tens], 391, 1);
+    draw_staticSprite_xpm(&context.numbers[units], 410, 1);
+}
+
 void draw_frame() {
     if(context.sprites[SPRITE_QUITbtn_Idx].is_pressed){
         context.gamestatus = OFF;
@@ -160,7 +172,8 @@ void draw_game_screen(){
     draw_map();
     draw_staticSprite_xpm(&context.sprites[SPRITE_DOOR_Idx], 663, 27);
     draw_movingSprite_xpm(&context.sprites[SPRITE_BOY_Idx]);
-    draw_movingSprite_xpm(&context.sprites[SPRITE_GIRL_Idx]);
+    draw_movingSprite_xpm(&context.sprites[SPRITE_GIRL_Idx]);  
+    draw_timer_countDown();     
 }
 
 void draw_newMouse_pos(){

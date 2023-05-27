@@ -147,6 +147,7 @@ int read_map(){
     return 0;
 }
 
+
 void allocate_mouse(){
     sprite_build1(&context.sprites[0], (xpm_map_t) xpms_array[0]);
 }
@@ -174,6 +175,12 @@ void allocate_game_elements(){
         sprite_build1(&context.sprites[i], (xpm_map_t) xpms_array[i]);
     }
     if(read_map() != 0) printf("error while reading game map\n");
+}
+
+void allocate_numbers(){
+    for (int i = 0; i < 10; i++){
+        sprite_build1(&context.numbers[i], (xpm_map_t) numbersArray[i]);
+    }
 }
 
 void delete_screens(){

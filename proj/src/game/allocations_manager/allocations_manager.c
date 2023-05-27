@@ -9,6 +9,7 @@ void manage_game_allocations(){
     allocate_game_elements();
     allocate_players();
     allocate_buttons();
+    allocate_numbers();
 }
 
 void manage_game_deletes(){
@@ -29,7 +30,9 @@ void manage_start_states(){
 
     context.map_countdown = 0;
     context.startMapCountdown = 1;
-    
+    context.count_seconds = 0;
+    context.display_time = 0;
+
     reset_barrier();
 
     set_sprite_xpos(&context.sprites[SPRITE_BOY_Idx], 25);

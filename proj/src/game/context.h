@@ -2,6 +2,8 @@
 #define CONTEXT_H_
 
 #define MAX_SPRITES 21
+#define MAX_NUMBERS 10
+
 
 #define SPRITE_MOUSE_Idx 0
 #define SPRITE_PLAYbtn_Idx 1
@@ -24,6 +26,17 @@
 #define SPRITE_LEVERright_Idx 18
 #define SPRITE_FIRE_Idx 19
 #define SPRITE_ICE_Idx 20
+
+#define SPRITE_NUMBERS_0_Idx 0
+#define SPRITE_NUMBERS_1_Idx 1
+#define SPRITE_NUMBERS_2_Idx 2
+#define SPRITE_NUMBERS_3_Idx 3
+#define SPRITE_NUMBERS_4_Idx 4
+#define SPRITE_NUMBERS_5_Idx 5
+#define SPRITE_NUMBERS_6_Idx 6
+#define SPRITE_NUMBERS_7_Idx 7
+#define SPRITE_NUMBERS_8_Idx 8
+#define SPRITE_NUMBERS_9_Idx 9
 
 
 typedef enum {
@@ -84,6 +97,8 @@ struct gamecontext {
 
     int map_countdown;
     int startMapCountdown;
+    int display_time;
+    int count_seconds;
 
     Status gamestatus;
     GameState gamestate;
@@ -93,6 +108,7 @@ struct gamecontext {
     barrier_t* barriers;
     trap_t* traps;
     sprite_t sprites[MAX_SPRITES];
+    sprite_t numbers[MAX_NUMBERS];
 };
 
 struct gamecontext context;
