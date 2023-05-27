@@ -30,6 +30,7 @@
 #include "xpms/game_elements/fire.xpm"
 #include "xpms/game_elements/ice.xpm"
 #include "xpms/screens/lostMenu.xpm"
+#include "xpms/buttons/button_mainMenu.xpm"
 
 static char **xpms_array[] = {
     mouse_xpm,
@@ -38,6 +39,7 @@ static char **xpms_array[] = {
     button_inst_xpm,
     button_multi_xpm,
     button_back_xpm,
+    button_mainMenu_xpm,
     background_final_xpm,
     instructions_xpm,
     game_backgroung_xpm,

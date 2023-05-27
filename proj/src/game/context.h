@@ -9,20 +9,21 @@
 #define SPRITE_INSTbtn_Idx 3
 #define SPRITE_MULTIbtn_Idx 4
 #define SPRITE_BACKbtn_Idx 5
-#define SPRITE_INITscreen_Idx 6
-#define SPRITE_INSTscreen_Idx 7
-#define SPRITE_GAMEscreen_Idx 8
-#define SPRITE_WINscree_Idx 9
-#define SPRITE_LOSEscree_Idx 10
-#define SPRITE_BOY_Idx 11
-#define SPRITE_GIRL_Idx 12
-#define SPRITE_WALL_Idx 13
-#define SPRITE_DOOR_Idx 14
-#define SPRITE_BARRIER_Idx 15
-#define SPRITE_LEVERleft_Idx 16
-#define SPRITE_LEVERright_Idx 17
-#define SPRITE_FIRE_Idx 18
-#define SPRITE_ICE_Idx 19
+#define SPRITE_MAINMENUbtn_Idx 6
+#define SPRITE_INITscreen_Idx 7
+#define SPRITE_INSTscreen_Idx 8
+#define SPRITE_GAMEscreen_Idx 9
+#define SPRITE_WINscree_Idx 10
+#define SPRITE_LOSEscree_Idx 11
+#define SPRITE_BOY_Idx 12
+#define SPRITE_GIRL_Idx 13
+#define SPRITE_WALL_Idx 14
+#define SPRITE_DOOR_Idx 15
+#define SPRITE_BARRIER_Idx 16
+#define SPRITE_LEVERleft_Idx 17
+#define SPRITE_LEVERright_Idx 18
+#define SPRITE_FIRE_Idx 19
+#define SPRITE_ICE_Idx 20
 
 
 typedef enum {

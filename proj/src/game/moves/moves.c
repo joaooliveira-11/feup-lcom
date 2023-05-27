@@ -91,7 +91,7 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
         }
     }
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < context.numTraps; i++) {
         uint16_t trapX = context.traps[i].x;
         uint16_t trapY = context.traps[i].y;
         uint8_t trapType = context.traps[i].type;
@@ -101,7 +101,7 @@ int check_colisions(uint16_t targetXPOS, uint16_t targetYPOS, int PlayerType) {
 
         if (targetXPOS + targetWidth >= trapX && targetXPOS <= trapX + trapWidth &&
             targetYPOS + targetHeight >= trapY && targetYPOS <= trapY + trapHeight && (PlayerType == trapType)) {
-            return 1;
+                context.gamestate = GAMEOVER_MENU;
         }
     }
 
@@ -194,6 +194,14 @@ void mouse_PLAYING(){
     }
 }
 
+void mouse_GAMEOVER(){
+    if(mouse_packet.xpos >= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos + context.sprites[SPRITE_MAINMENUbtn_Idx].width
+     && mouse_packet.ypos >= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos + context.sprites[SPRITE_MAINMENUbtn_Idx].height
+     ){
+        context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 1;
+    }
+}
+
 void check_mouse_clicks() {
     if(mouse_packet.lb){ 
         switch(context.gamestate) {
@@ -215,6 +223,10 @@ void check_mouse_clicks() {
                 } 
                  break;
             }
+            case GAMEOVER_MENU:{
+                mouse_GAMEOVER();
+                 break;
+            }
             default:
                 break;
         }
@@ -225,6 +237,7 @@ void check_mouse_clicks() {
         context.sprites[SPRITE_QUITbtn_Idx].is_pressed = 0;
         context.sprites[SPRITE_INSTbtn_Idx].is_pressed = 0;
         context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 0;
+        context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 0;
     }
 }
 

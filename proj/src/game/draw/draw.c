@@ -93,6 +93,7 @@ void draw_frame() {
     if(context.sprites[SPRITE_PLAYbtn_Idx].is_pressed) context.gamestate = PLAYING;
     if(context.sprites[SPRITE_INSTbtn_Idx].is_pressed) context.gamestate = INSTRUCTIONS_MENU;
     if(context.sprites[SPRITE_BACKbtn_Idx].is_pressed) context.gamestate = START_MENU;
+    if(context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed) context.gamestate = START_MENU;
 
     switch (context.gamestate) {
         case START_MENU:
@@ -165,5 +166,8 @@ void draw_newMouse_pos(){
 
 void draw_lose_screen() {
     draw_staticSprite_xpm(&context.sprites[SPRITE_LOSEscree_Idx],0,0);
-    draw_staticSprite_xpm(&context.sprites[SPRITE_BACKbtn_Idx], 320, 320);
+    draw_staticSprite_xpm(&context.sprites[SPRITE_MAINMENUbtn_Idx], 300, 350);
+
+    set_sprite_xpos(&context.sprites[SPRITE_MAINMENUbtn_Idx], 300);
+    set_sprite_ypos(&context.sprites[SPRITE_MAINMENUbtn_Idx], 350);
 }
