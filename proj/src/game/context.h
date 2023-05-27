@@ -1,8 +1,7 @@
 #ifndef CONTEXT_H_
 #define CONTEXT_H_
 
-
-#define MAX_SPRITES 18
+#define MAX_SPRITES 20
 
 #define SPRITE_MOUSE_Idx 0
 #define SPRITE_PLAYbtn_Idx 1
@@ -22,6 +21,9 @@
 #define SPRITE_BARRIER_Idx 15
 #define SPRITE_LEVERleft_Idx 16
 #define SPRITE_LEVERright_Idx 17
+#define SPRITE_FIRE_Idx 18
+#define SPRITE_ICE_Idx 19
+
 
 typedef enum {
     ON,
@@ -57,6 +59,11 @@ struct barrier {
   uint8_t is_open;
 };
 
+struct trap {
+  uint16_t x,y;
+  uint8_t type;
+};
+
 typedef struct sprite sprite_t;
 typedef struct watergirl watergirl_t;
 typedef struct fireboy fireboy_t;
@@ -64,9 +71,12 @@ typedef struct position position_t;
 
 typedef struct lever lever_t;
 typedef struct barrier barrier_t;
+typedef struct trap trap_t;
+
 
 struct gamecontext {
     int numWalls;
+    int numTraps;
 
     int levers_countdown;
     int startLeversCountdown;
@@ -80,6 +90,7 @@ struct gamecontext {
     lever_t* levers;
     lever_t* levers_match;
     barrier_t* barriers;
+    trap_t* traps;
     sprite_t sprites[MAX_SPRITES];
 };
 
