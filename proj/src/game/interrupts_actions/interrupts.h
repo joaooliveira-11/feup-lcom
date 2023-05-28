@@ -5,6 +5,7 @@
 #include <minix/sysutil.h>
 #include "../../devices/util/KBC.h"
 #include "../../devices/mouse/mouse.h"
+#include "../../devices/keyboard/keyboard.h"
 #include "../../devices/graphics/graphics.h"
 #include "../elements/sprite/sprite.h"
 #include "../draw/draw.h"
