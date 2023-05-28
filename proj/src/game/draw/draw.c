@@ -7,7 +7,7 @@ uint32_t frame_buffer_size;
 extern vbe_mode_info_t vbe_mode_info;
 extern mouse_t mouse_structure;
 extern struct gamecontext context;
-extern rtc_info time_info;
+extern uint8_t rtc_data[6];
 
 
 int allocate_double_buffer(uint16_t mode) {
@@ -51,13 +51,13 @@ int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y) {
 }
 
 void draw_rtc(){
-    rtc_setup();
-    draw_staticSprite_xpm(&context.numbers[(time_info.hours) / 10], 0, 0);
-    draw_staticSprite_xpm(&context.numbers[(time_info.hours) % 10], 20, 0);
-    draw_staticSprite_xpm(&context.numbers[(time_info.minutes) / 10], 50, 0);
-    draw_staticSprite_xpm(&context.numbers[(time_info.minutes) % 10], 70, 0);
-    draw_staticSprite_xpm(&context.numbers[(time_info.seconds) / 10], 100, 0);
-    draw_staticSprite_xpm(&context.numbers[(time_info.seconds) % 10], 120, 0);
+    rtc_start();
+    draw_staticSprite_xpm(&context.numbers[(rtc_data[3]) / 10], 0, 0);
+    draw_staticSprite_xpm(&context.numbers[(rtc_data[3]) % 10], 20, 0);
+    draw_staticSprite_xpm(&context.numbers[(rtc_data[4]) / 10], 50, 0);
+    draw_staticSprite_xpm(&context.numbers[(rtc_data[4]) % 10], 70, 0);
+    draw_staticSprite_xpm(&context.numbers[(rtc_data[5]) / 10], 100, 0);
+    draw_staticSprite_xpm(&context.numbers[(rtc_data[5]) % 10], 120, 0);
 
 }
 
@@ -127,6 +127,8 @@ void draw_initial_menu_screen() {
 
     set_sprite_xpos(&context.sprites[SPRITE_MULTIbtn_Idx], 560);
     set_sprite_ypos(&context.sprites[SPRITE_MULTIbtn_Idx], 235);
+
+    draw_rtc();
 
 }
 
