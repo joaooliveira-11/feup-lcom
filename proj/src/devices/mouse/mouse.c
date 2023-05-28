@@ -4,29 +4,17 @@ int mouse_hook_id = 2;
 uint8_t mouse_current_byte;
 uint8_t mouse_byte_index = 0;
 uint8_t mouse_bytes[3];
-mouse_t mouse_packet;
+mouse_t mouse_structure;
 extern vbe_mode_info_t vbe_mode_info;
 
-int (mouse_subscribe_int)(uint8_t *bit_no){
-    if(bit_no == NULL) return 1;
-    *bit_no = BIT(mouse_hook_id);
-    if(sys_irqsetpolicy(12, IRQ_REENABLE | IRQ_EXCLUSIVE, &mouse_hook_id) != 0) return 1;
-    return 0;
-}
-
-int(mouse_unsubscribe_int)(){
-    if(sys_irqrmpolicy(&mouse_hook_id) != 0) return 1;
-    return 0;
-}
 
 void (mouse_ih)(){
-    if(read_KBC_output(0x60, &mouse_current_byte,1) != 0){
+    if(read_KBC_mouseOUTPUT(0x60, &mouse_current_byte) != 0){
         printf("Error while reading a byte from mouse output\n");
     }
 }
 
-
-void (mouse_sync_bytes)(){
+void (packet_bytes)(){
     if(mouse_byte_index == 0 && ( mouse_current_byte & BIT(3) ) ){   // bit 3 ativo é o byte de controlo, logo, começamos um packet
         mouse_bytes[mouse_byte_index] = mouse_current_byte;
         mouse_byte_index++;
@@ -37,40 +25,53 @@ void (mouse_sync_bytes)(){
     }
 }
 
-void (mouse_bytes_to_packet)(){
-
-    for(int x = 0 ;  x < 3; x++){
-        mouse_packet.bytes[x] = mouse_bytes[x];
-    }
-    
-    mouse_packet.lb = mouse_bytes[0] & BIT(0); // botão esq
-    mouse_packet.mb = mouse_bytes[0] & BIT(2); // botão do meio
-    mouse_packet.rb = mouse_bytes[0] & BIT(1); // botão dir
-
-    mouse_packet.x_ov = mouse_bytes[0] & BIT(6); // overflow no deslocamento em x
-    mouse_packet.y_ov = mouse_bytes[0] & BIT(7); // overflow no deslocamento em y
-    if(mouse_packet.x_ov || mouse_packet.y_ov) return;
-
-    mouse_packet.delta_x = (mouse_bytes[0] & BIT(4)) ? (0XFF00 | mouse_bytes[1]) : mouse_bytes[1]; // se o descolamento for negativo inverter para ter o valor absoluto
-    mouse_packet.delta_y = (mouse_bytes[0] & BIT(5)) ? (0XFF00 | mouse_bytes[2]) : mouse_bytes[2];  // se o descolamento for negativo inverter para ter o valor absoluto
-    
-    if(mouse_packet.xpos + mouse_packet.delta_x < 0 || mouse_packet.ypos - mouse_packet.delta_y < 0 || mouse_packet.xpos + mouse_packet.delta_x > vbe_mode_info.XResolution || mouse_packet.ypos - mouse_packet.delta_y > vbe_mode_info.YResolution) return;
-    mouse_packet.xpos += mouse_packet.delta_x;
-    mouse_packet.ypos -= mouse_packet.delta_y;
+int (mouse_subscribe_int)(uint8_t *bit_no){
+    if(bit_no == NULL) return 1;
+    *bit_no = BIT(mouse_hook_id);
+    if(sys_irqsetpolicy(12, IRQ_REENABLE | IRQ_EXCLUSIVE, &mouse_hook_id) != 0) return 1;
+    return 0;
 }
 
-int (mouse_write)(uint8_t command){
+void (build_mouse_packet)(){
+
+    for(int x = 0 ;  x < 3; x++){
+        mouse_structure.bytes[x] = mouse_bytes[x];
+    }
+    
+    mouse_structure.lb = mouse_bytes[0] & BIT(0);
+    mouse_structure.rb = mouse_bytes[0] & BIT(1);
+    mouse_structure.mb = mouse_bytes[0] & BIT(2);
+
+    mouse_structure.x_ov = mouse_bytes[0] & BIT(6);
+    mouse_structure.y_ov = mouse_bytes[0] & BIT(7);
+
+    if(mouse_structure.x_ov || mouse_structure.y_ov) return;
+
+    mouse_structure.delta_x = (mouse_bytes[0] & BIT(4)) ? (0XFF00 | mouse_bytes[1]) : mouse_bytes[1]; // se o descolamento for negativo inverter para ter o valor absoluto
+    mouse_structure.delta_y = (mouse_bytes[0] & BIT(5)) ? (0XFF00 | mouse_bytes[2]) : mouse_bytes[2]; // se o descolamento for negativo inverter para ter o valor absoluto
+    
+    if(mouse_structure.xpos + mouse_structure.delta_x < 0 || mouse_structure.ypos - mouse_structure.delta_y < 0 || mouse_structure.xpos + mouse_structure.delta_x >= vbe_mode_info.XResolution || mouse_structure.ypos - mouse_structure.delta_y >= vbe_mode_info.YResolution) return;
+    mouse_structure.xpos += mouse_structure.delta_x;
+    mouse_structure.ypos -= mouse_structure.delta_y;
+}
+
+int (mouse_write_input)(uint8_t mouse_command){
     uint8_t attemps = 10;
     uint8_t mouse_answer;
 
-    while(attemps && mouse_answer != ACK){
-        if(write_KBC_command(0x64, 0xD4) != 0) return 1;
-        if(write_KBC_command(0x60, command) != 0) return 1;  // comando direto para o rato com inibição da interpretação
+    while(attemps && mouse_answer != 0xFA){
+        if(write_KBC_INPUT(0x64, 0xD4) != 0) return 1;
+        if(write_KBC_INPUT(0x60, mouse_command) != 0) return 1;  // comando direto para o rato com inibição da interpretação
 
         if(util_sys_inb(0x60, &mouse_answer) != 0) return 1;
-        if(mouse_answer == ACK) return 0;
+        if(mouse_answer == 0xFA) return 0;
         tickdelay(micros_to_ticks(20000));
         attemps--;
     }
     return 1;
+}
+
+int(mouse_unsubscribe_int)(){
+    if(sys_irqrmpolicy(&mouse_hook_id) != 0) return 1;
+    return 0;
 }

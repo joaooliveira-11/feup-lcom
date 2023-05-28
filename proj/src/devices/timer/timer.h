@@ -1,18 +1,15 @@
-#ifndef _TIMER_
-#define _TIMER_
+#ifndef _TIMER_PROJECT
+#define _TIMER_PROJECT
 
 #include <lcom/lcf.h>
 #include <lcom/timer.h>
 #include <stdint.h>
-#include "i8254.h"
+
+#define BIT(n) (1 << (n))
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq);
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st);
-
-int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field);
-
-void(timer_int_handler)();
 
 int (timer_subscribe_int)(uint8_t *bit_no);
 

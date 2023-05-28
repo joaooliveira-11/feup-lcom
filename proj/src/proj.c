@@ -25,9 +25,6 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 0;
   }
 
-  context.gamestatus = ON;
-  context.gamestate = START_MENU; 
-
   draw_frame();
 
   int ipc_status;

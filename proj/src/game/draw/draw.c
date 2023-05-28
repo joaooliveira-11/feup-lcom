@@ -5,7 +5,7 @@ uint8_t *second_frame_buffer;
 uint32_t frame_buffer_size;
 
 extern vbe_mode_info_t vbe_mode_info;
-extern mouse_t mouse_packet;
+extern mouse_t mouse_structure;
 extern struct gamecontext context;
 
 
@@ -86,7 +86,7 @@ void draw_map(){
 }
 
 void draw_timer_countDown(){
-    int timer = 180 - (context.map_countdown/60) ;
+    int timer = 230 - (context.map_countdown/60) ;
 
     int units = timer % 10; 
     int tens = (timer / 10) % 10; 
@@ -144,8 +144,8 @@ void draw_game_screen(){
 }
 
 void draw_newMouse_pos(){
-    set_sprite_xpos(&context.sprites[SPRITE_MOUSE_Idx], mouse_packet.xpos);
-    set_sprite_ypos(&context.sprites[SPRITE_MOUSE_Idx], mouse_packet.ypos);
+    set_sprite_xpos(&context.sprites[SPRITE_MOUSE_Idx], mouse_structure.xpos);
+    set_sprite_ypos(&context.sprites[SPRITE_MOUSE_Idx], mouse_structure.ypos);
     draw_movingSprite_xpm(&context.sprites[SPRITE_MOUSE_Idx]);
 }
 
