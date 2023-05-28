@@ -38,6 +38,4 @@ void manage_start_states(){
     set_sprite_ypos(&context.sprites[SPRITE_BOY_Idx], 515);
     set_sprite_xpos(&context.sprites[SPRITE_GIRL_Idx], 25);
     set_sprite_ypos(&context.sprites[SPRITE_GIRL_Idx], 515);
-
 } 
-

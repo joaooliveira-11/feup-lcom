@@ -80,18 +80,42 @@ static char **numbersArray[] = {
     number9_xpm
 };
 
+///@brief Reads the game map from a file and initializes the game elements accordingly.
+///@return 0 if successful, 1 otherwise.
 int read_map();
+
+///@brief Allocates memory and builds the mouse sprite.
 void allocate_mouse();
-void allocate_screens();
-void allocate_game_elements();
-void allocate_players();
+
+///@brief Allocates memory and builds the button sprites.
 void allocate_buttons();
+
+///@brief Allocates memory and builds the screen sprites.
+void allocate_screens();
+
+///@brief Allocates memory and builds the player sprites.
+void allocate_players();
+
+///@brief Allocates memory and builds the game element sprites.
+///@note Also reads the game map and initializes the game elements.
+void allocate_game_elements();
+
+///@brief Allocates memory and builds the number sprites.
 void allocate_numbers();
 
+///@brief Deletes the screen sprites.
 void delete_screens();
+
+///@brief Deletes the game element sprites and frees the memory allocated for game elements.
 void delete_game_elements();
+
+///@brief Deletes the player sprites.
 void delete_players();
+
+///@brief Deletes the button sprites.
 void delete_buttons();
+
+///@brief Deletes the number sprites.
 void delete_numbers();
 
 #endif

@@ -45,4 +45,3 @@ int(finish_game)(){
 
   return 0;
 }
-
