@@ -7,6 +7,7 @@ PROG=proj
 .PATH: ${.CURDIR}/devices/mouse
 .PATH: ${.CURDIR}/devices/timer
 .PATH: ${.CURDIR}/devices/graphics
+.PATH: ${.CURDIR}/devices/rtc
 .PATH: ${.CURDIR}/devices/util
 .PATH: ${.CURDIR}/game/
 .PATH: ${.CURDIR}/game/draw
@@ -18,7 +19,7 @@ PROG=proj
 
 
 # Ficheiros ".c" a compilar. Têm de estar contidos nas pastas indicadas no passo anterior.
-SRCS = 	proj.c timer.c utils.c graphics.c keyboard.c mouse.c sprite.c moves.c interrupts.c KBC.c elements.c draw.c game.c allocations_manager.c
+SRCS = 	proj.c timer.c utils.c graphics.c keyboard.c mouse.c rtc.c sprite.c moves.c interrupts.c KBC.c elements.c draw.c game.c allocations_manager.c
 
 # Flags de compilação
 CFLAGS += -pedantic -D_LCOM_OPTIMIZED_ -O2

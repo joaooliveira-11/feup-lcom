@@ -7,6 +7,7 @@ uint32_t frame_buffer_size;
 extern vbe_mode_info_t vbe_mode_info;
 extern mouse_t mouse_packet;
 extern struct gamecontext context;
+extern rtc_info time_info;
 
 
 int allocate_double_buffer(uint16_t mode) {
@@ -47,6 +48,15 @@ int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y) {
       }
     }
     return 0; 
+}
+
+void draw_rtc(){
+    rtc_setup();
+    draw_staticSprite_xpm(&context.numbers[(time_info.hours) / 10], 0, 0);
+    draw_staticSprite_xpm(&context.numbers[(time_info.hours) % 10], 20, 0);
+    draw_staticSprite_xpm(&context.numbers[(time_info.minutes) / 10], 50, 0);
+    draw_staticSprite_xpm(&context.numbers[(time_info.minutes) % 10], 70, 0);
+
 }
 
 void draw_map(){
@@ -103,6 +113,7 @@ void draw_initial_menu_screen() {
     draw_staticSprite_xpm(&context.sprites[SPRITE_QUITbtn_Idx],560,365);
     draw_staticSprite_xpm(&context.sprites[SPRITE_INSTbtn_Idx],35,365);
     draw_staticSprite_xpm(&context.sprites[SPRITE_MULTIbtn_Idx],560,235);
+    draw_rtc();
 
     set_sprite_xpos(&context.sprites[SPRITE_PLAYbtn_Idx], 35);
     set_sprite_ypos(&context.sprites[SPRITE_PLAYbtn_Idx], 235);

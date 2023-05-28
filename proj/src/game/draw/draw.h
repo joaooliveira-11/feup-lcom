@@ -8,6 +8,7 @@
 #include "../interrupts_actions/interrupts.h"
 #include "../context.h"
 #include "../allocations_manager/allocations_manager.h"
+#include "../../devices/rtc/rtc.h"
 
 int allocate_double_buffer(uint16_t mode);
 void update_buffers();
