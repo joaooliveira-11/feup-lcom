@@ -56,6 +56,8 @@ void draw_rtc(){
     draw_staticSprite_xpm(&context.numbers[(time_info.hours) % 10], 20, 0);
     draw_staticSprite_xpm(&context.numbers[(time_info.minutes) / 10], 50, 0);
     draw_staticSprite_xpm(&context.numbers[(time_info.minutes) % 10], 70, 0);
+    draw_staticSprite_xpm(&context.numbers[(time_info.seconds) / 10], 100, 0);
+    draw_staticSprite_xpm(&context.numbers[(time_info.seconds) % 10], 120, 0);
 
 }
 
@@ -113,7 +115,6 @@ void draw_initial_menu_screen() {
     draw_staticSprite_xpm(&context.sprites[SPRITE_QUITbtn_Idx],560,365);
     draw_staticSprite_xpm(&context.sprites[SPRITE_INSTbtn_Idx],35,365);
     draw_staticSprite_xpm(&context.sprites[SPRITE_MULTIbtn_Idx],560,235);
-    draw_rtc();
 
     set_sprite_xpos(&context.sprites[SPRITE_PLAYbtn_Idx], 35);
     set_sprite_ypos(&context.sprites[SPRITE_PLAYbtn_Idx], 235);

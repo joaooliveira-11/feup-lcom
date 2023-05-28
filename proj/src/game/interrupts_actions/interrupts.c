@@ -10,6 +10,10 @@ extern struct gamecontext context;
 
 void handle_timer_interrupt(){
     update_buffers();
+
+    if(context.gamestate == START_MENU){
+        draw_rtc();
+    }
     
     if(context.gamestate == PLAYING){
 

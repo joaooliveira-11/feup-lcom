@@ -34,6 +34,9 @@ int draw_staticSprite_xpm(sprite_t *sprite, uint16_t x, uint16_t y);
 ///@brief Draws the game map by rendering walls, barriers, levers, and traps on the second frame buffer.
 void draw_map();
 
+///@brief Draws the real time clock on the screen.
+void draw_rtc();
+
 ///@brief Draws the countdown timer on the screen.
 void draw_timer_countDown();
 
