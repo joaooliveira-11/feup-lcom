@@ -18,7 +18,3 @@ int(keyboard_unsubscribe_int)(){
     if(sys_irqrmpolicy(&keyboard_hook_id) != 0) return 1;
     return 0;
 }
-
-
-
-
