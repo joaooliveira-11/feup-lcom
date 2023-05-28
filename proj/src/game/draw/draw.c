@@ -171,7 +171,7 @@ void draw_lose_screen() {
     set_sprite_ypos(&context.sprites[SPRITE_MAINMENUbtn_Idx], 350);
 }
 
-void draw_frame() {
+void draw_screen() {
     if(context.sprites[SPRITE_QUITbtn_Idx].is_pressed){
         context.gamestatus = OFF;
         return;

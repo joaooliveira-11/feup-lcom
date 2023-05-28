@@ -25,7 +25,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
     return 0;
   }
 
-  draw_frame();
+  draw_screen();
 
   int ipc_status;
   message msg;

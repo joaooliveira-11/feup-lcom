@@ -18,9 +18,9 @@ int (check_rtc_mode)(){
 }
 
 void (rtc_start)(){
-    rtc_update_time();
     if(check_rtc_mode() == 1) rtc_binary = 0;
     else rtc_binary = 1;
+    rtc_update_time();
 }
 
 int (rtc_update_time)(){
@@ -28,25 +28,25 @@ int (rtc_update_time)(){
     if (rtc_writeRead(10, &busy)) return 1;
 
     if(! (busy & BIT(7)) ){
-
+        
     uint8_t output;
 
-    rtc_writeRead(8, &output);
+    if(rtc_writeRead(8, &output) != 0) return 1;
     rtc_data[1] = rtc_binary ? output : bcd_to_bin(output);
     
-    rtc_writeRead(0, &output);
+    if(rtc_writeRead(0, &output) != 0) return 1;
     rtc_data[5] = rtc_binary ? output : bcd_to_bin(output);
 
-    rtc_writeRead(4, &output);
+    if(rtc_writeRead(4, &output) != 0) return 1;
     rtc_data[3] = rtc_binary ? output : bcd_to_bin(output);
 
-    rtc_writeRead(2, &output);
+    if(rtc_writeRead(2, &output) != 0) return 1;
     rtc_data[4] = rtc_binary ? output : bcd_to_bin(output);
 
-    rtc_writeRead(7, &output);
+    if(rtc_writeRead(7, &output) != 0) return 1;
     rtc_data[2] = rtc_binary ? output : bcd_to_bin(output);
 
-    rtc_writeRead(9, &output);
+    if(rtc_writeRead(9, &output) != 0) return 1;
     rtc_data[0] = rtc_binary ? output : bcd_to_bin(output);
 
     }

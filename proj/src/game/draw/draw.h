@@ -59,7 +59,7 @@ void draw_lose_screen();
 void draw_newMouse_pos();
 
 ///@brief Draws the frame based on the game state and updates the mouse position.
-void draw_frame();
+void draw_screen();
 
 ///@brief Function pointer type for game screen drawing functions.
 typedef void (*funct_t)();

@@ -21,7 +21,7 @@ void handle_timer_interrupt(){
         if(context.startLeversCountdown){
             if(context.levers_countdown / 60 == 3){
                 reset_barrier();
-                draw_frame();
+                draw_screen();
             }
             else context.levers_countdown++;
         }
@@ -29,7 +29,7 @@ void handle_timer_interrupt(){
             
             if(context.map_countdown / 60 == 230){
                 context.gamestate = GAMEOVER_MENU;
-                draw_frame();
+                draw_screen();
             }
             else {
                 context.map_countdown++;
@@ -88,7 +88,7 @@ void handle_keyboard_interrupt(){
         default:
             break;
     }
-    draw_frame();
+    draw_screen();
 }
 
 void handle_mouse_interrupt(){
@@ -96,7 +96,7 @@ void handle_mouse_interrupt(){
     packet_bytes();
     if(mouse_byte_index == 3){
         build_mouse_packet();
-        draw_frame();
+        draw_screen();
         check_mouse_clicks();
         mouse_byte_index = 0;
     }
