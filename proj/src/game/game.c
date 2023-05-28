@@ -8,7 +8,7 @@
 #include "allocations_manager/allocations_manager.h"
 
 
-extern mouse_t mouse_packet;
+extern mouse_t mouse_structure;
 extern struct gamecontext context;
 extern uint8_t TIMER_MASK, KEYBOARD_MASK, MOUSE_MASK;
 
@@ -20,8 +20,8 @@ int(start_game)(){
 
     manage_game_allocations();
     
-    if(mouse_write(0xEA) != 0) return 1;
-    if(mouse_write(0xF4) != 0) return 1;
+    if(mouse_write_input(0xEA) != 0) return 1;
+    if(mouse_write_input(0xF4) != 0) return 1;
 
     if(timer_subscribe_int(&TIMER_MASK) != 0) return 1;
     if(keyboard_subscribe_int(&KEYBOARD_MASK) != 0) return 1;
@@ -41,8 +41,7 @@ int(finish_game)(){
   if(keyboard_unsubscribe_int() != 0) return 1;
   if(mouse_unsubscribe_int() != 0) return 1;
 
-  if (mouse_write(0xF5) != 0) return 1;
+  if (mouse_write_input(0xF5) != 0) return 1;
 
   return 0;
 }
-

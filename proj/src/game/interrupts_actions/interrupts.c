@@ -4,7 +4,7 @@ extern uint8_t scancode;
 extern uint8_t mouse_byte_index; 
 
 extern vbe_mode_info_t vbe_mode_info;
-extern mouse_t mouse_packet;
+extern mouse_t mouse_structure;
 extern struct gamecontext context;
 
 
@@ -23,7 +23,7 @@ void handle_timer_interrupt(){
         }
         if(context.startMapCountdown){
             
-            if(context.map_countdown / 60 == 180){
+            if(context.map_countdown / 60 == 230){
                 context.gamestate = GAMEOVER_MENU;
                 draw_frame();
             }
@@ -44,7 +44,7 @@ void move_action(GameState state, int (*check_move)(), void (*move_player)() ){
 }
 
 void handle_keyboard_interrupt(){
-    (kbc_ih)();
+    kbc_ih();
     switch (scancode) {
         case QUIT:
             context.gamestatus = OFF;
@@ -89,9 +89,9 @@ void handle_keyboard_interrupt(){
 
 void handle_mouse_interrupt(){
     mouse_ih();
-    mouse_sync_bytes();
+    packet_bytes();
     if(mouse_byte_index == 3){
-        mouse_bytes_to_packet();
+        build_mouse_packet();
         draw_frame();
         check_mouse_clicks();
         mouse_byte_index = 0;

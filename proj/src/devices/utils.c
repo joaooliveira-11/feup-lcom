@@ -1,18 +1,17 @@
 #include <lcom/lcf.h>
 #include <stdint.h>
 
-
 uint32_t counter_sysinb = 0;
 
-int(util_get_LSB)(uint16_t value, uint8_t * lsb){
-  if(lsb == NULL) return 1;
-  *lsb = value & 0xFF;
+int(util_get_LSB)(uint16_t value, uint8_t * lsb_byte){
+  if(lsb_byte== NULL) return 1;
+  *lsb_byte = value & 0x00FF;
   return 0;
 } 
 
-int(util_get_MSB)(uint16_t value, uint8_t *msb){
-  if(msb == NULL) return 1;
-  *msb = value >> 8;
+int(util_get_MSB)(uint16_t value, uint8_t *msb_byte){
+  if(msb_byte == NULL) return 1;
+  *msb_byte = (value >> 8) & 0x00FF;
   return 0;
 }
 

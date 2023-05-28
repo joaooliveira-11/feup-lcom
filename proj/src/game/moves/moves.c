@@ -1,7 +1,7 @@
 #include "moves.h"
 #include <math.h>
 
-extern mouse_t mouse_packet;
+extern mouse_t mouse_structure;
 
 extern struct gamecontext context;
 
@@ -164,28 +164,28 @@ int check_nearBY(lever_t lever, int PlayerType) {
 }
 
 void mouse_MENU(){
-    if(mouse_packet.xpos >= context.sprites[SPRITE_PLAYbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_PLAYbtn_Idx].xpos + context.sprites[SPRITE_PLAYbtn_Idx].width
-     && mouse_packet.ypos >= context.sprites[SPRITE_PLAYbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_PLAYbtn_Idx].ypos + context.sprites[SPRITE_PLAYbtn_Idx].height
+    if(mouse_structure.xpos >= context.sprites[SPRITE_PLAYbtn_Idx].xpos && mouse_structure.xpos <= context.sprites[SPRITE_PLAYbtn_Idx].xpos + context.sprites[SPRITE_PLAYbtn_Idx].width
+     && mouse_structure.ypos >= context.sprites[SPRITE_PLAYbtn_Idx].ypos && mouse_structure.ypos <= context.sprites[SPRITE_PLAYbtn_Idx].ypos + context.sprites[SPRITE_PLAYbtn_Idx].height
      ){
         context.sprites[SPRITE_PLAYbtn_Idx].is_pressed = 1;
     }
 
-    else if(mouse_packet.xpos >= context.sprites[SPRITE_INSTbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_INSTbtn_Idx].xpos + context.sprites[SPRITE_INSTbtn_Idx].width
-     && mouse_packet.ypos >= context.sprites[SPRITE_INSTbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_INSTbtn_Idx].ypos + context.sprites[SPRITE_INSTbtn_Idx].height
+    else if(mouse_structure.xpos >= context.sprites[SPRITE_INSTbtn_Idx].xpos && mouse_structure.xpos <= context.sprites[SPRITE_INSTbtn_Idx].xpos + context.sprites[SPRITE_INSTbtn_Idx].width
+     && mouse_structure.ypos >= context.sprites[SPRITE_INSTbtn_Idx].ypos && mouse_structure.ypos <= context.sprites[SPRITE_INSTbtn_Idx].ypos + context.sprites[SPRITE_INSTbtn_Idx].height
      ){
         context.sprites[SPRITE_INSTbtn_Idx].is_pressed = 1;
     }
 
-    else if(mouse_packet.xpos >= context.sprites[SPRITE_QUITbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_QUITbtn_Idx].xpos + context.sprites[SPRITE_QUITbtn_Idx].width
-     && mouse_packet.ypos >= context.sprites[SPRITE_QUITbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_QUITbtn_Idx].ypos + context.sprites[SPRITE_QUITbtn_Idx].height
+    else if(mouse_structure.xpos >= context.sprites[SPRITE_QUITbtn_Idx].xpos && mouse_structure.xpos <= context.sprites[SPRITE_QUITbtn_Idx].xpos + context.sprites[SPRITE_QUITbtn_Idx].width
+     && mouse_structure.ypos >= context.sprites[SPRITE_QUITbtn_Idx].ypos && mouse_structure.ypos <= context.sprites[SPRITE_QUITbtn_Idx].ypos + context.sprites[SPRITE_QUITbtn_Idx].height
      ){
         context.sprites[SPRITE_QUITbtn_Idx].is_pressed = 1;
     }
 }
 
 void mouse_INSTRUCTIONS(){
-    if(mouse_packet.xpos >= context.sprites[SPRITE_BACKbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_BACKbtn_Idx].xpos + context.sprites[SPRITE_BACKbtn_Idx].width
-     && mouse_packet.ypos >= context.sprites[SPRITE_BACKbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_BACKbtn_Idx].ypos + context.sprites[SPRITE_BACKbtn_Idx].height
+    if(mouse_structure.xpos >= context.sprites[SPRITE_BACKbtn_Idx].xpos && mouse_structure.xpos <= context.sprites[SPRITE_BACKbtn_Idx].xpos + context.sprites[SPRITE_BACKbtn_Idx].width
+     && mouse_structure.ypos >= context.sprites[SPRITE_BACKbtn_Idx].ypos && mouse_structure.ypos <= context.sprites[SPRITE_BACKbtn_Idx].ypos + context.sprites[SPRITE_BACKbtn_Idx].height
      ){
         context.sprites[SPRITE_BACKbtn_Idx].is_pressed = 1;
     }
@@ -195,8 +195,8 @@ void mouse_PLAYING(){
     for(int i = 0; i < 3; i++){
         if(
             !(context.levers[i].is_pressed) &&
-            mouse_packet.xpos >= context.levers[i].x && mouse_packet.xpos <= context.levers[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
-            mouse_packet.ypos >= context.levers[i].y && mouse_packet.ypos <= context.levers[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
+            mouse_structure.xpos >= context.levers[i].x && mouse_structure.xpos <= context.levers[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
+            mouse_structure.ypos >= context.levers[i].y && mouse_structure.ypos <= context.levers[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
         ){
             if(check_nearBY(context.levers[i], 0) == 0 || check_nearBY(context.levers[i], 1) == 0){
                 context.levers[i].is_pressed = 1; 
@@ -207,8 +207,8 @@ void mouse_PLAYING(){
         }
         if(
             !(context.levers_match[i].is_pressed) &&
-            mouse_packet.xpos >= context.levers_match[i].x && mouse_packet.xpos <= context.levers_match[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
-            mouse_packet.ypos >= context.levers_match[i].y && mouse_packet.ypos <= context.levers_match[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
+            mouse_structure.xpos >= context.levers_match[i].x && mouse_structure.xpos <= context.levers_match[i].x + context.sprites[SPRITE_LEVERleft_Idx].width &&
+            mouse_structure.ypos >= context.levers_match[i].y && mouse_structure.ypos <= context.levers_match[i].y + context.sprites[SPRITE_LEVERleft_Idx].height
         )
         {
             if(check_nearBY(context.levers_match[i], 0) == 0 || check_nearBY(context.levers_match[i], 1) == 0){
@@ -222,16 +222,16 @@ void mouse_PLAYING(){
 }
 
 void mouse_GAMEOVER(){
-    if(mouse_packet.xpos >= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos + context.sprites[SPRITE_MAINMENUbtn_Idx].width
-     && mouse_packet.ypos >= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos + context.sprites[SPRITE_MAINMENUbtn_Idx].height
+    if(mouse_structure.xpos >= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos && mouse_structure.xpos <= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos + context.sprites[SPRITE_MAINMENUbtn_Idx].width
+     && mouse_structure.ypos >= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos && mouse_structure.ypos <= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos + context.sprites[SPRITE_MAINMENUbtn_Idx].height
      ){
         context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 1;
     }
 }
 
 void mouse_GAMEWIN(){
-    if(mouse_packet.xpos >= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos && mouse_packet.xpos <= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos + context.sprites[SPRITE_MAINMENUbtn_Idx].width
-     && mouse_packet.ypos >= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos && mouse_packet.ypos <= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos + context.sprites[SPRITE_MAINMENUbtn_Idx].height
+    if(mouse_structure.xpos >= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos && mouse_structure.xpos <= context.sprites[SPRITE_MAINMENUbtn_Idx].xpos + context.sprites[SPRITE_MAINMENUbtn_Idx].width
+     && mouse_structure.ypos >= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos && mouse_structure.ypos <= context.sprites[SPRITE_MAINMENUbtn_Idx].ypos + context.sprites[SPRITE_MAINMENUbtn_Idx].height
      ){
         context.sprites[SPRITE_MAINMENUbtn_Idx].is_pressed = 1;
     }
@@ -245,7 +245,7 @@ void reset_mouseClicks(){
 }
 
 void check_mouse_clicks() {
-    if(mouse_packet.lb){ 
+    if(mouse_structure.lb){ 
         funcs1[context.gamestate](); 
     }
     else {

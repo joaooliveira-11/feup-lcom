@@ -39,11 +39,14 @@
 #define SPRITE_NUMBERS_9_Idx 9
 
 
+
+///@brief Enumeration representing the status (ON or OFF) of a component or feature.
 typedef enum {
     ON,
     OFF,
 } Status;
 
+///@brief Enumeration representing the different game states.
 typedef enum {
     START_MENU,
     GAMEWIN_MENU,
@@ -52,6 +55,7 @@ typedef enum {
     PLAYING,
 } GameState;
 
+///@brief Structure representing a sprite in the game.
 struct sprite {
   uint16_t xpos, ypos;
   uint16_t height, width;
@@ -59,20 +63,24 @@ struct sprite {
   uint8_t is_pressed; 
 };
 
+///@brief Structure representing a position in the game.
 struct position {
   uint16_t x,y;
 };
 
+///@brief Structure representing a lever in the game.
 struct lever {
   uint16_t x,y;
   uint8_t is_pressed;
 };
 
+///@brief Structure representing a barrier in the game.
 struct barrier {
   uint16_t x,y;
   uint8_t is_open;
 };
 
+///@brief Structure representing a trap in the game.
 struct trap {
   uint16_t x,y;
   uint8_t type;
@@ -87,7 +95,7 @@ typedef struct lever lever_t;
 typedef struct barrier barrier_t;
 typedef struct trap trap_t;
 
-
+///@brief Structure representing the game context.
 struct gamecontext {
     int numWalls;
     int numTraps;
@@ -110,7 +118,5 @@ struct gamecontext {
 };
 
 struct gamecontext context;
-
-
 
 #endif
