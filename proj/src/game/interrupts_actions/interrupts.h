@@ -23,7 +23,7 @@ void handle_keyboard_interrupt();
 ///@brief Handles the mouse interrupt.
 void handle_mouse_interrupt();
 
-///@brief Perfe corms a move action based on the game state, a movheck function, and a move player function.
+///@brief Performs a move action based on the game state, a check move function, and a move player function.
 ///@param state The game state in which the move action should be performed.
 ///@param check_move Pointer to the move check function.
 ///@param move_player Pointer to the move player function.

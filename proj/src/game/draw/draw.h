@@ -46,8 +46,7 @@ void draw_initial_menu_screen();
 ///@brief Draws the instructions menu screen.
 void draw_instructions_menu_screen();
 
-///@brief Reads network.csv and stations.csv
-///@note Store Stations in an unordered_map and build a graph with vertexes representing stations and edges the networks.
+///@brief Draws game screen with the map, the sprites, and the cowntdown.
 void draw_game_screen();
 
 ///@brief Draws the win screen.
