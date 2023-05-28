@@ -31,4 +31,22 @@ int (rtc_update_time)();
 ///@return The converted binary number.
 uint8_t (bcd_to_bin)(uint8_t bcd_number);
 
+/// @note auxiliar functions used on rtc_update_time()
+int (rtc_update_seconds)();
+
+/// @note auxiliar functions used on rtc_update_time()
+int (rtc_update_minutes)();
+
+/// @note auxiliar functions used on rtc_update_time()
+int (rtc_update_hours)();
+
+/// @note auxiliar functions used on rtc_update_time()
+int (rtc_update_year)();
+
+/// @note auxiliar functions used on rtc_update_time()
+int (rtc_update_month)();
+
+/// @note auxiliar functions used on rtc_update_time()
+int (rtc_update_day)();
+
 #endif
