@@ -1,6 +1,6 @@
 #include "allocations_manager.h"
 
-extern mouse_t mouse_packet;
+extern mouse_t mouse_structure;
 extern struct gamecontext context;
 
 void manage_game_allocations(){
@@ -21,8 +21,8 @@ void manage_game_deletes(){
 }
 
 void manage_start_states(){
-    mouse_packet.xpos = 50;
-    mouse_packet.ypos = 50;
+    mouse_structure.xpos = 50;
+    mouse_structure.ypos = 50;
     context.gamestatus = ON;
     context.gamestate = START_MENU; 
 

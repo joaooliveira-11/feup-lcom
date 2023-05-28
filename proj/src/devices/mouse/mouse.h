@@ -1,16 +1,16 @@
-#ifndef MOUSE_H_
-#define MOUSE_H_
+#ifndef _MOUSE_PROJECT
+#define _MOUSE_PROJECT
 
 #include <minix/sysutil.h>
 #include <lcom/lcf.h>
 #include "../util/KBC.h"
 
 typedef struct{
-  uint8_t bytes[3]; // mouse packet raw bytes
-  bool rb, mb, lb;  // right, middle and left mouse buttons pressed
-  int16_t delta_x;  // mouse x-displacement: rightwards is positive
-  int16_t delta_y;  // mouse y-displacement: upwards is positive
-  bool x_ov, y_ov;  // mouse x-displacement and y-displacement overflows
+  uint8_t bytes[3]; 
+  bool rb, mb, lb;  
+  int16_t delta_x;  
+  int16_t delta_y;
+  bool x_ov, y_ov;
   uint16_t xpos;
   uint16_t ypos;
 } mouse_t;
@@ -21,11 +21,11 @@ int (mouse_unsubscribe_int)();
 
 void (mouse_ih)();
 
-void (mouse_sync_bytes)();
+void (packet_bytes)();
 
-void (mouse_bytes_to_packet)();
+void (build_mouse_packet)();
 
-int (mouse_write)(uint8_t command);
+int (mouse_write_input)(uint8_t mouse_command);
 
 #endif
 
